@@ -1,56 +1,40 @@
 import pandas as pd
 import streamlit as st
+import zipfile
+import io
 from math import sqrt
+import base64
 
 def gde(excel_data, fr):
-    """
-    Processa a planilha Excel para calcular o somatório de D para cada elemento,
-    incluindo d_max, gde e gdf para cada elemento em cada planilha.
-
-    Parâmetros:
-        excel_data (pd.DataFrame): DataFrame contendo os dados da planilha Excel.
-        fr (int): O fator F_r selecionado pelo usuário para o cálculo.
-
-    Retorno:
-        pd.DataFrame: DataFrame contendo os elementos, o somatório de D (sum(D)),
-                      o d_max, o gde e o gdf para cada elemento, incluindo o nome da planilha.
-    """
-
     resultados = []
     sum_fr = 0
-    print('---'*50)
-    # Iterar sobre os elementos e verificar se as colunas ('Fi', 'Fp') estão presentes
+
     for elemento in excel_data.columns.get_level_values(0).unique():
         fi_col = (elemento, 'Fi')
         fp_col = (elemento, 'Fp')
 
-        # Verificar se as colunas ('Fi', 'Fp') existem para o elemento
         if fi_col in excel_data.columns and fp_col in excel_data.columns:
-            # Calcular D para cada linha
             d_values = []
             for fi, fp in zip(excel_data[fi_col], excel_data[fp_col]):
                 if fi <= 2.0:
-                    d = 0.8 * fi * fp  # Equação 3.1
+                    d = 0.8 * fi * fp
                 elif fi >= 3.0:
-                    d = (12 * fi - 28) * fp  # Equação 3.2
-
+                    d = (12 * fi - 28) * fp
+                else:
+                    d = 0
                 d_values.append(d)
 
-            # Somatório de D para o elemento
             d_total = sum(d_values)
             d_max = max(d_values)
 
-            # Calcular gde para o elemento
-            gde = d_max * (1 + ((d_total - d_max) / d_total))
+            gde = d_max * (1 + ((d_total - d_max) / d_total)) if d_total != 0 else 0
             gde_values = [gde]
             gde_max = max(gde_values)
             gde_total = sum(gde_values)
-            gdf = gde_max * sqrt(1 + gde_total - gde_max) / gde_total
+            gdf = gde_max * sqrt(1 + gde_total - gde_max) / gde_total if gde_total != 0 else 0
             fr_gdf = fr * gdf
 
             sum_fr += fr
-            print(f'elemento: {elemento}, sum_fr: {sum_fr}')
-            print(f'gde: {gde}, gde_values: {gde_values}, gde_max: {gde_max}, gde_total: {gde_total}, gdf: {gdf}, fr: {fr}')
 
             resultados.append({
                 "Elemento": elemento,
@@ -60,15 +44,16 @@ def gde(excel_data, fr):
                 "gdf": fr_gdf
             })
 
-
     result_df = pd.DataFrame(resultados)
     result_df.reset_index(drop=True, inplace=True)
     return result_df, sum_fr, fr_gdf
 
-# Título da aplicação
-st.title("GDA")
+def image_to_base64(img_bytes):
+    return base64.b64encode(img_bytes).decode("utf-8")
 
-# Descrição do fator F_r
+# Streamlit App
+st.title("GDA - Relatório Consolidado por Famílias de Elementos")
+
 fr_descricao = {
     1: "Barreiras, guarda-corpo, guarda rodas, pista de rolamento",
     2: "Juntas de dilatação",
@@ -77,67 +62,95 @@ fr_descricao = {
     5: "Vigas e pilares principais",
 }
 
-# Upload dos arquivos Excel
-uploaded_files = st.file_uploader(
-    "Carregue um ou mais arquivos Excel",
-    type=["xlsx", "xls"],
-    accept_multiple_files=True
-)
+if "html_output" not in st.session_state:
+    st.session_state.html_output = None
 
-# Dicionário para armazenar os fatores \( F_r \) escolhidos
-fr_selecionados = {}
-planilhas = {}
+# Número de famílias
+num_familias = st.number_input("Para quantas famílias de elementos você deseja gerar o relatório?", min_value=1, step=1)
 
-if uploaded_files:
-    # Loop para cada arquivo carregado
-    for file in uploaded_files:
-        file_name = file.name
-        try:
-            # Carregar o arquivo Excel
-            df = pd.read_excel(file, header=[0, 1])
-            planilhas[file_name] = df
-            
-            # Selectbox para selecionar o fator \( F_r \)
-            fr = st.selectbox(
-                f"Selecione o grupo familiar para {file_name}",
-                options=list(fr_descricao.keys()),
-                format_func=lambda x: f"{fr_descricao[x]}"
-            )
-            fr_selecionados[file_name] = fr
+uploaded_zips = []
+fr_selecionados = []
 
-        except Exception as e:
-            st.error(f"Erro ao processar {file_name}: {e}")
+for i in range(num_familias):
+    st.markdown(f"### Família {i+1}")
+    uploaded_zip = st.file_uploader(f"Faça upload do arquivo .zip para a Família {i+1}", type=["zip"], key=f"zip_{i}")
+    fr = st.selectbox(
+        f"Selecione o grupo familiar para a Família {i+1}",
+        options=list(fr_descricao.keys()),
+        format_func=lambda x: f"{fr_descricao[x]}",
+        key=f"fr_{i}"
+    )
+    uploaded_zips.append(uploaded_zip)
+    fr_selecionados.append(fr)
 
-    # Botão para aplicar o cálculo
-    if st.button("Calcular"):
-        resultados_finais = []  # Inicializar a lista de resultados
-        sum_fr_total = 0
-        sum_fr_gdf = 0
+if st.button("Calcular"):
+    resultados_finais = []
+    sum_fr_total = 0
+    sum_fr_gdf_total = 0
 
-        st.title("Resultados")
-        for file_name, df in planilhas.items():
-            fr = fr_selecionados[file_name]
-            st.subheader(f"{file_name}")
+    html_output = "<html><head><meta charset='utf-8'><title>Relatório GDA</title></head><body>"
+    html_output += "<h1>Relatório Consolidado GDA</h1>"
 
-            # Aplicar a função GDA
-            resultado, sum_fr, fr_gdf = gde(df, fr)
-            st.table(resultado)
-            sum_fr_total += sum_fr
-            sum_fr_gdf += fr_gdf
-            # Adicionar o resultado à lista para permitir o download
-            resultados_finais.append((file_name, resultado))
-        st.write('---'*50)
-        st.write(f'Somatório total dos $F_r$: {sum_fr_total}')
-        st.write(f'Somatório total dos $F_r * gdf$: {sum_fr_gdf}')
-        st.write(f'GD: {sum_fr_gdf/sum_fr_total}')
-        # Permitir download dos resultados
-        with st.expander("Baixar todos os resultados"):
-            for file_name, resultado in resultados_finais:
-                csv = resultado.to_csv(index=False)
-                st.download_button(
-                    label=f"Baixar resultado de {file_name}",
-                    data=csv,
-                    file_name=f"resultado_{file_name}.csv",
-                    mime="text/csv"
-                )
+    for i in range(num_familias):
+        uploaded_zip = uploaded_zips[i]
+        fr = fr_selecionados[i]
 
+        if uploaded_zip:
+            with zipfile.ZipFile(uploaded_zip, "r") as zip_ref:
+                fotos_base64 = []
+
+                # Primeiro, localizar fotos.zip e processar as imagens
+                for file in zip_ref.namelist():
+                    if file.endswith("fotos.zip"):
+                        with zip_ref.open(file) as fz:
+                            with zipfile.ZipFile(fz) as fotos_zip:
+                                for img_name in fotos_zip.namelist():
+                                    if img_name.lower().endswith(('.png', '.jpg', '.jpeg')):
+                                        img_data = fotos_zip.read(img_name)
+                                        img_b64 = image_to_base64(img_data)
+                                        fotos_base64.append((img_name, img_b64))
+
+                # Agora processar os arquivos Excel
+                for file in zip_ref.namelist():
+                    if file.endswith(('.xlsx', '.xls')):
+                        with zip_ref.open(file) as f:
+                            df = pd.read_excel(f, header=[0, 1])
+                            resultado, sum_fr, fr_gdf = gde(df, fr)
+
+                            sum_fr_total += sum_fr
+                            sum_fr_gdf_total += fr_gdf
+                            resultados_finais.append((f"Família_{i+1}_{file}", resultado))
+
+                            html_output += f"<h2>Família {i+1} - {file}</h2>"
+                            html_output += resultado.to_html(index=False, border=1)
+
+                            # Adicionar fotos da inspeção ao HTML
+                            if fotos_base64:
+                                html_output += "<h3>Fotos da inspeção:</h3><div style='display:flex; flex-wrap:wrap;'>"
+                                for img_name, img_b64 in fotos_base64:
+                                    html_output += f"""
+                                        <div style="margin:10px; text-align:center;">
+                                            <img src="data:image/jpeg;base64,{img_b64}" width="300"/><br>
+                                            <small>{img_name}</small>
+                                        </div>
+                                    """
+                                html_output += "</div>"
+
+    if resultados_finais:
+        # gd = sum_fr_gdf_total / sum_fr_total if sum_fr_total != 0 else 0
+        # html_output += f"<hr><h3>Somatório total dos F_r: {sum_fr_total}</h3>"
+        # html_output += f"<h3>Somatório total dos F_r * gdf: {sum_fr_gdf_total:.4f}</h3>"
+        # html_output += f"<h3>GD: {gd:.4f}</h3>"
+        html_output += "</body></html>"
+
+        st.session_state.html_output = html_output
+
+# Mostrar botão de download se relatório foi gerado
+if st.session_state.html_output:
+    st.markdown("### 📄 Download do Relatório Consolidado")
+    st.download_button(
+        label="Baixar Relatório Consolidado (.html)",
+        data=st.session_state.html_output.encode("utf-8"),
+        file_name="relatorio_gda.html",
+        mime="text/html"
+    )
