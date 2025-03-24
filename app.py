@@ -1,13 +1,15 @@
 import pandas as pd
 import streamlit as st
 import zipfile
-import io
-from math import sqrt
 import base64
+import io
+
+from pathlib import Path
+from math import sqrt
+
 
 def gde(excel_data, fr):
     resultados = []
-    sum_fr = 0
     for elemento in excel_data.columns.get_level_values(0).unique():
         fi_col = (elemento, 'Fi')
         fp_col = (elemento, 'Fp')
@@ -24,28 +26,143 @@ def gde(excel_data, fr):
             d_total = sum(d_values)
             d_max = max(d_values)
             gde = d_max * (1 + ((d_total - d_max) / d_total)) if d_total != 0 else 0
+            print(d_max, d_total, gde)
             gde_values = [gde]
             gde_max = max(gde_values)
             gde_total = sum(gde_values)
             gdf = gde_max * sqrt(1 + gde_total - gde_max) / gde_total if gde_total != 0 else 0
             fr_gdf = fr * gdf
-            sum_fr += fr
             resultados.append({
                 "Elemento": elemento,
-                "∑D": d_total,
-                "Dₘₐₓ": d_max,
-                "Gdₑ": gde,
-                "Fᵣ × Gdf": fr_gdf
+                "$$\Sigma D$$": d_total,
+                "$$D_{max}$$": d_max,
+                "$$G_{de}$$": gde,
+                "$$F_r × G_{df}$$": fr_gdf
             })
     result_df = pd.DataFrame(resultados)
     result_df.reset_index(drop=True, inplace=True)
-    return result_df, sum_fr, fr_gdf
+    return result_df, fr, fr_gdf 
 
-def image_to_base64(img_bytes):
+
+def image_to_base64(image_input):
+    """
+    Converte uma imagem para base64, seja a partir de bytes ou de um caminho para arquivo.
+    - Se receber `bytes`, codifica diretamente.
+    - Se receber `str` ou `Path`, abre o arquivo e codifica.
+    """
+    if isinstance(image_input, (str, Path)):
+        with open(image_input, "rb") as img_file:
+            img_bytes = img_file.read()
+    elif isinstance(image_input, bytes):
+        img_bytes = image_input
+    else:
+        raise ValueError("Entrada inválida para image_to_base64: deve ser bytes ou caminho de arquivo (str ou Path).")
+    
     return base64.b64encode(img_bytes).decode("utf-8")
 
 st.title("Automação inspeção GDE")
 
+# def image_logo(image_path):
+#     with open(image_path, "rb") as img_file:
+#         return base64.b64encode(img_file.read()).decode()
+
+img_base64 = image_to_base64("assets/images/GDre.png")
+img_html = f'<img src="data:image/png;base64,{img_base64}" width="150"/>'
+
+
+st.markdown(rf""" 
+<table>
+  <tr>
+    <td style="width:70%;">
+      <p align="justify">
+        A ferramenta inspGDE é um software para automatização da inspeção de pontes com o metdologia GDE. 
+        O software foi desenvovlido pelo grupo de pesquisa liderado pelo professor Wanderlei Malaquias Pereira Junior 
+        da Faculdade  de Engenharia da Universidade Federal de Catalão. A plataforma foi construída usando a linguagem Python.
+      </p>
+    </td>
+    <td style="width:100%; text-align: center;">{img_html}</td>  
+  </tr>
+</table>  
+""", unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <style>
+    .suggestions-box1 {
+        border: 2px solid #00008B;
+        background-color: #ADD8E6;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    ::-webkit-scrollbar {
+     width: 18px;
+    }
+
+    /* Estiliza o fundo da barra de rolagem */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    /* Estiliza o "thumb" da barra de rolagem */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+    /* Muda a cor quando hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    </style>
+    
+    <div class="suggestions-box1">
+        <h4>Sugestões</h4>
+        <p>Se você tiver alguma sugestão ou quiser relatar erros relacionados ao funcionamento do algoritmo, 
+        envie um e-mail para <a href="mailto:wanderlei_junior@ufcat.edu.br">wanderlei_junior@ufcat.edu.br</a>. 
+        Ficaremos felizes em aprimorar a ferramenta.</p>
+    </div>
+    """,
+    unsafe_allow_html=True)
+
+st.write("")
+
+st.markdown(
+    """    
+    <style>
+    .suggestions-box {
+        border: 2px solid #FFA500;
+        background-color: #FFF3CD;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .suggestions-box p {
+        margin: 5px 0;
+    }
+    .suggestions-box a {
+        text-decoration: none;
+        color: #007BFF;
+        font-weight: bold;
+    }
+    </style>
+
+    <div class="suggestions-box">
+        <h4>Team</h4>
+        <p><a href="http://lattes.cnpq.br/2268506213083114" target="_blank">Prof. PhD Wanderlei Malaquias Pereira Junior</a></p>
+        <p><a href="https://orcid.org/0000-0003-0215-8701" target="_blank">Prof. Hunmberto Varum</a></p>
+        <p><a href="" target="_blank">Eng. Marcus Vinicius Nascimento</a></p>
+        <p><a href="" target="_blank">Eng. Pedro Henrique Gomes</a></p>
+        <p><a href="http://orcid.org/0009-0008-4084-2137" target="_blank">Disc. Luiz Henrique Ferreira Rezio</a></p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.write("")
+st.subheader("Como usar")
 st.markdown("""
 Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe a nossa planilha modelo ([acesse aqui](https://github.com/wmpjrufg/inspgde.git)) e preencha os dados da inspeção.
 
@@ -53,7 +170,7 @@ Após o preenchimento da inspeção, crie um arquivo `.zip` que contenha os segu
 
 ```
 dados.zip
-├── fotos.zip
+├── fotos
 │   ├── image_1.png
 │   ├── image_2.png
 │   └── ...
@@ -118,19 +235,15 @@ if st.button("Calcular"):
                 encontrou_fotos = False
                 encontrou_planilha = False
                 for file in zip_ref.namelist():
-                    if file.endswith("fotos.zip"):
+                    if file.startswith("fotos/") and file.lower().endswith(('.png', '.jpg', '.jpeg')):
                         encontrou_fotos = True
-                        with zip_ref.open(file) as fz:
-                            with zipfile.ZipFile(fz) as fotos_zip:
-                                for img_name in fotos_zip.namelist():
-                                    if img_name.lower().endswith(('.png','.jpg','.jpeg')):
-                                        img_data = fotos_zip.read(img_name)
-                                        img_b64 = image_to_base64(img_data)
-                                        fotos_base64.append((img_name, img_b64))
+                        img_data = zip_ref.read(file)
+                        img_b64 = image_to_base64(img_data)
+                        fotos_base64.append((file.split("/")[-1], img_b64))
                 if encontrou_fotos:
-                    st.success(f"✅ Família {i+1}: Arquivo 'fotos.zip' encontrado e processado com sucesso.")
+                    st.success(f"✅ Família {i+1}: Imagens na pasta 'fotos' encontradas e processadas com sucesso.")
                 else:
-                    st.warning(f"⚠️ Família {i+1}: Nenhum 'fotos.zip' encontrado.")
+                    st.warning(f"⚠️ Família {i+1}: Nenhuma imagem encontrada na pasta 'fotos'.")
 
                 for file in zip_ref.namelist():
                     if file.endswith(('.xlsx','.xls')):
@@ -144,33 +257,46 @@ if st.button("Calcular"):
                         if processou_valido:
                             sum_fr_total += sum_fr
                             sum_fr_gdf_total += fr_gdf
-                            resultados_finais.append((f"Família_{i+1}_{file}", resultado))
+                            resultados_finais.append({
+                                "nome_arquivo": uploaded_zip.name,
+                                "fr": fr,
+                                "fr_gdf": fr_gdf,
+                                "resultado": resultado
+                            })
 
                             html_output += f"<h2>Família {i+1} - {file}</h2>"
-                            html_output += resultado.to_html(index=False, border=1)
+                            html_output += resultado.to_html(index=False, border=1, escape=False)
                             descricao_familia = fr_descricao[fr]
                             html_output += f"<p><strong>Fator de Importância:</strong> \\( F_r = {fr} \\) – {descricao_familia}</p>"
 
+                            # html_output += """
+                            # <h3>Cálculo do G<sub>df</sub> (Grau de Deficiência Familiar):</h3>
+                            # <p><em>Fórmula:</em></p>
+                            # <p>\\[ G_{df} = G_{de,max} \\cdot \\sqrt{1 + \\frac{\\left( \\sum_{i=1}^{m} G_{de,i} \\right) - G_{de,max}}{\\sum_{i=1}^{m} G_{de,i}}} \\]</p>
+                            # """
+
                             html_output += """
                             <h3>Cálculo do G<sub>df</sub> (Grau de Deficiência Familiar):</h3>
-                            <p><em>Fórmula:</em></p>
-                            <p>\\[ G_{df} = G_{de,max} \\cdot \\sqrt{1 + \\frac{\\left( \\sum_{i=1}^{m} G_{de,i} \\right) - G_{de,max}}{\\sum_{i=1}^{m} G_{de,i}}} \\]</p>
                             """
-
-                            gde_list = resultado["Gdₑ"].tolist()
+                            gde_list = resultado["$$G_{de}$$"].tolist()
                             gde_max = max(gde_list)
                             gde_sum = sum(gde_list)
-                            gdf = gde_max * sqrt(1 + (gde_sum - gde_max)/gde_sum) if gde_sum else 0
+                            gdf = gde_max * sqrt(1 + (gde_sum - gde_max) / gde_sum) if gde_sum else 0
                             fr_gdf = fr * gdf
-                            html_output += f"""
-                            <table class='calc-table'>
-                            <tr><th colspan='2'>Cálculo de G<sub>df</sub></th></tr>
-                            <tr><td>G<sub>de,max</sub></td><td>{gde_max:.4f}</td></tr>
-                            <tr><td>&#8721; G<sub>de,i</sub></td><td>{gde_sum:.4f}</td></tr>
-                            <tr><td>G<sub>df</sub></td><td>{gde_max:.4f} × √(1 + (({gde_sum:.4f} - {gde_max:.4f}) / {gde_sum:.4f})) = {gdf:.4f}</td></tr>
-                            <tr><td>F<sub>r</sub> × G<sub>df</sub></td><td>{fr} × {gdf:.4f} = <b>{fr_gdf:.4f}</b></td></tr>
-                            </table>
+
+                            # Fórmula com os valores injetados
+                            latex_formula = f"""
+                            \\[
+                            G_{{df}} = {gde_max:.4f} \\cdot \\sqrt{{1 + \\frac{{({gde_sum:.4f} - {gde_max:.4f})}}{{{gde_sum:.4f}}}}} = {gdf:.4f}
+                            \\]
+                            <br>
+                            \\[
+                            F_{{r}} \\cdot G_{{df}} = {fr:.4f} \\cdot {gdf:.4f} = \\mathbf{{{fr_gdf:.4f}}}
+                            \\]
                             """
+
+                            html_output += latex_formula
+
                             if fotos_base64:
                                 html_output += "<h3>Fotos da inspeção:</h3><div class='image-gallery'>"
                                 for img_name, img_b64 in sorted(fotos_base64):
@@ -180,27 +306,60 @@ if st.button("Calcular"):
                 if not encontrou_planilha:
                     st.error(f"❌ Família {i+1}: Nenhuma planilha .xlsx/.xls encontrada.")
 
-    if resultados_finais:
-        html_output += "<hr><h2>Determinação do GD</h2>"
-        gd_final = sum_fr_gdf_total / sum_fr_total if sum_fr_total != 0 else 0
-        if gd_final <= 15:
-            nivel, acao = "Baixo", "Estado aceitável. Manutenção preventiva."
-        elif gd_final <= 50:
-            nivel, acao = "Médio", "Nova inspeção e plano de intervenção em longo prazo (até 2 anos)."
-        elif gd_final <= 80:
-            nivel, acao = "Alto", "Inspeção detalhada e intervenção em médio prazo (até 18 meses)."
-        else:
-            nivel, acao = "Sofrível", "Inspeção detalhada e intervenção em curto prazo."
-        html_output += f"""<table class='calc-table'>
-        <tr><th colspan='2'>Resumo Determinação GD</th></tr>
-        <tr><td>∑(Fr × Gdf)</td><td>{sum_fr_gdf_total:.4f}</td></tr>
-        <tr><td>∑ Fr</td><td>{sum_fr_total:.4f}</td></tr>
-        <tr><td><b>GD</b></td><td><b>{gd_final:.4f}</b></td></tr>
-        <tr><td>Nível de Deterioração</td><td>{nivel}</td></tr>
-        <tr><td>Ação Recomend.</td><td>{acao}</td></tr>
-        </table>"""
-    html_output += "</body></html>"
-    st.session_state.html_output = html_output
 
-if st.session_state.html_output:
-    st.download_button("Baixar Relatório Consolidado (.html)", st.session_state.html_output.encode("utf-8"), "relatorio_gda.html", mime="text/html")
+    # Montar resumo por família
+    if resultados_finais:
+        # RESUMO DAS FAMÍLIAS
+        html_output += "<hr><h2>Resumo dos Resultados por Família</h2>"
+        html_output += """
+        <table class='calc-table'>
+        <tr><th>Família / Arquivo</th><th>F<sub>r</sub></th><th>F<sub>r</sub> × G<sub>df</sub></th></tr>
+        """
+
+        for i, dados in enumerate(resultados_finais):
+            nome_arquivo = dados["nome_arquivo"]
+            fr = dados["fr"]
+            fr_gdf = dados["fr_gdf"]
+            html_output += f"""
+            <tr>
+                <td>Família {i+1} – {nome_arquivo}</td>
+                <td>{fr:.4f}</td>
+                <td>{fr_gdf:.4f}</td>
+            </tr>
+            """
+
+        html_output += "</table>"
+
+        # CÁLCULO FINAL DE GRAU DE DETERIORAÇÃO
+        html_output += "<hr><h2>Grau de Deterioração da Estrutura</h2>"
+        gd_final = sum_fr_gdf_total / sum_fr_total if sum_fr_total != 0 else 0
+
+        if gd_final <= 15:
+            nivel = "Baixo"
+            acao = "Estado aceitável. Manutenção preventiva."
+        elif gd_final <= 50:
+            nivel = "Médio"
+            acao = "Nova inspeção e plano de intervenção em longo prazo (até 2 anos)."
+        elif gd_final <= 80:
+            nivel = "Alto"
+            acao = "Inspeção detalhada e intervenção em médio prazo (até 18 meses)."
+        else:
+            nivel = "Sofrível"
+            acao = "Inspeção detalhada e intervenção em curto prazo."
+
+        html_output += f"""
+        <table class='calc-table'>
+            <tr><td><strong>∑(F<sub>r</sub> × G<sub>df</sub>)</strong></td><td>{sum_fr_gdf_total:.4f}</td></tr>
+            <tr><td><strong>∑ F<sub>r</sub></strong></td><td>{sum_fr_total:.4f}</td></tr>
+            <tr><td><strong>G<sub>d</sub></strong></td><td><strong>{gd_final:.4f}</strong></td></tr>
+            <tr><td><strong>Nível de Deterioração</strong></td><td>{nivel}</td></tr>
+            <tr><td><strong>Ação Recomendada</strong></td><td>{acao}</td></tr>
+        </table>
+        """
+
+        html_output += "</body></html>"
+        st.session_state.html_output = html_output
+
+    if st.session_state.html_output:
+        st.download_button("Baixar relatório detalhado (.html)", st.session_state.html_output.encode("utf-8"), "relatorio_gda.html", mime="text/html")
+
