@@ -8,40 +8,71 @@ from pathlib import Path
 from math import sqrt
 
 
+import pandas as pd
+from math import sqrt
+
 def gde(excel_data, fr):
     resultados = []
+
+    # Percorre cada coluna principal (nível 0 do MultiIndex)
     for elemento in excel_data.columns.get_level_values(0).unique():
         fi_col = (elemento, 'Fi')
         fp_col = (elemento, 'Fp')
+
         if fi_col in excel_data.columns and fp_col in excel_data.columns:
             d_values = []
-            for fi, fp in zip(excel_data[fi_col], excel_data[fp_col]):
+            
+            for idx in range(len(excel_data)):
+                fi = excel_data.at[idx, fi_col]
+                fp = excel_data.at[idx, fp_col]
+
+                # Verificação individual para Fi
                 if fi <= 2.0:
-                    d = 0.8 * fi * fp
+                    d_fi = 0.8 * fi * fp
                 elif fi >= 3.0:
-                    d = (12 * fi - 28) * fp
+                    d_fi = (12 * fi - 28) * fp
                 else:
-                    d = 0
-                d_values.append(d)
+                    d_fi = 0
+
+                # Verificação individual para Fp
+                if fp <= 2.0:
+                    d_fp = 0.8 * fi * fp
+                elif fp >= 3.0:
+                    d_fp = (12 * fi - 28) * fp
+                else:
+                    d_fp = 0
+
+                d_values.extend([d_fi, d_fp])
+
+            print(d_values)
             d_total = sum(d_values)
-            d_max = max(d_values)
+            d_max = max(d_values) if d_values else 0
+
             gde = d_max * (1 + ((d_total - d_max) / d_total)) if d_total != 0 else 0
-            print(d_max, d_total, gde)
             gde_values = [gde]
+
             gde_max = max(gde_values)
             gde_total = sum(gde_values)
-            gdf = gde_max * sqrt(1 + gde_total - gde_max) / gde_total if gde_total != 0 else 0
+            gdf = gde_max * sqrt(1 + (gde_total - gde_max) / gde_total) if gde_total != 0 else 0
             fr_gdf = fr * gdf
+
             resultados.append({
                 "Elemento": elemento,
                 "$$\Sigma D$$": d_total,
                 "$$D_{max}$$": d_max,
                 "$$G_{de}$$": gde,
-                "$$F_r × G_{df}$$": fr_gdf
+                "$$F_r × G_{df}$$": fr_gdf,
             })
+
     result_df = pd.DataFrame(resultados)
     result_df.reset_index(drop=True, inplace=True)
-    return result_df, fr, fr_gdf 
+
+    # Soma para usar no G_d final
+    sum_fr = fr
+    sum_fr_gdf = fr_gdf if resultados else 0
+
+    return result_df, sum_fr, sum_fr_gdf
+
 
 
 def image_to_base64(image_input):
