@@ -1,77 +1,118 @@
 import pandas as pd
 import streamlit as st
+import numpy as np
 import zipfile
 import base64
-import io
 
 from pathlib import Path
 from math import sqrt
 
 
-import pandas as pd
-from math import sqrt
+def calcular_gde_por_peca(dfs_por_peca):
+    resultados_gde = {}
 
-def gde(excel_data, fr):
-    resultados = []
+    for peca, df in dfs_por_peca.items():
+        d_values = df['d'].values
 
-    # Percorre cada coluna principal (nível 0 do MultiIndex)
-    for elemento in excel_data.columns.get_level_values(0).unique():
-        fi_col = (elemento, 'Fi')
-        fp_col = (elemento, 'Fp')
+        if len(d_values) == 0 or d_values.sum() == 0:
+            # Se não há danos, valores nulos
+            resultados_gde[peca] = {
+                'gde': 0,
+                'gde_max': 0,
+                'gde_total': 0,
+                'gdf': 0
+            }
+            continue
 
-        if fi_col in excel_data.columns and fp_col in excel_data.columns:
-            d_values = []
-            
-            for idx in range(len(excel_data)):
-                fi = excel_data.at[idx, fi_col]
-                fp = excel_data.at[idx, fp_col]
+        d_total = d_values.sum()
+        d_max = d_values.max()
 
-                # Verificação individual para Fi
-                if fi <= 2.0:
-                    d_fi = 0.8 * fi * fp
-                elif fi >= 3.0:
-                    d_fi = (12 * fi - 28) * fp
-                else:
-                    d_fi = 0
+        # Cálculo do GDE
+        gde = d_max * (1 + ((d_total - d_max) / d_total))
+        gde_values = [gde]
+        gde_max = max(gde_values)
+        gde_total = sum(gde_values)
 
-                # Verificação individual para Fp
-                if fp <= 2.0:
-                    d_fp = 0.8 * fi * fp
-                elif fp >= 3.0:
-                    d_fp = (12 * fi - 28) * fp
-                else:
-                    d_fp = 0
+        print(f"Peça: {peca}, GDE: {gde}, GDE Max: {gde_max}, GDE Total: {gde_total}")
+        # Cálculo do GDF
+        gdf = gde_max * np.sqrt(1 + gde_total - gde_max) / gde_total
 
-                d_values.extend([d_fi, d_fp])
+        resultados_gde[peca] = {
+            'gde': gde,
+            'gde_max': gde_max,
+            'gde_total': gde_total,
+            'gdf': gdf
+        }
 
-            print(d_values)
-            d_total = sum(d_values)
-            d_max = max(d_values) if d_values else 0
+    return resultados_gde
 
-            gde = d_max * (1 + ((d_total - d_max) / d_total)) if d_total != 0 else 0
-            gde_values = [gde]
 
-            gde_max = max(gde_values)
-            gde_total = sum(gde_values)
-            gdf = gde_max * sqrt(1 + (gde_total - gde_max) / gde_total) if gde_total != 0 else 0
-            fr_gdf = fr * gdf
+def gde(df_raw, fr):
+    df = df_raw.fillna(0).copy()
+    col_dano = df.columns[0]
+    pecas = df.columns.levels[0][1:]
 
-            resultados.append({
-                "Elemento": elemento,
-                "$$\Sigma D$$": d_total,
-                "$$D_{max}$$": d_max,
-                "$$G_{de}$$": gde,
-                "$$F_r × G_{df}$$": fr_gdf,
+    registros = []
+
+    for i in range(len(df)):
+        dano = str(df.iloc[i, 0]).strip()
+        if dano.lower() == 'danos' or dano == '':
+            continue
+
+        for peca in pecas:
+            try:
+                fi = int(df[(peca, 'Fi')].iloc[i]) if pd.notna(df[(peca, 'Fi')].iloc[i]) else 0
+                fp = int(df[(peca, 'Fp')].iloc[i]) if pd.notna(df[(peca, 'Fp')].iloc[i]) else 0
+            except KeyError:
+                fi, fp = 0, 0
+
+            if fi <= 2.0:
+                d = 0.8 * fi * fp
+            elif fi >= 3.0:
+                d = (12 * fi - 28) * fp
+            else:
+                d = 0
+
+            registros.append({
+                'peça': peca,
+                'dano': dano,
+                'fi': fi,
+                'fp': fp,
+                'd': d
             })
 
-    result_df = pd.DataFrame(resultados)
-    result_df.reset_index(drop=True, inplace=True)
+    df_resultado = pd.DataFrame(registros)
 
-    # Soma para usar no G_d final
-    sum_fr = fr
-    sum_fr_gdf = fr_gdf if resultados else 0
+    # Agrupar por peça e calcular GDEs
+    dfs_por_peca = {
+        peca: df_resultado[df_resultado['peça'] == peca].reset_index(drop=True)
+        for peca in df_resultado['peça'].unique()
+    }
 
-    return result_df, sum_fr, sum_fr_gdf
+    gde_por_peca = calcular_gde_por_peca(dfs_por_peca)
+
+    # Criar DataFrame para exibir na tabela final
+    resultado_familia = []
+    gde_list = []
+    for peca, valores in gde_por_peca.items():
+        gde_list.append(valores['gde'])
+        resultado_familia.append({
+            "Elemento": peca,
+            "$$\sum D$$": valores['gde_total'],
+            "$$D_{max}$$": valores['gde_max'],
+            "$$G_{de}$$": valores['gde'],
+            "$$F_r × G_{df}$$": fr * valores['gdf']
+        })
+
+    gde_max = max(gde_list) if gde_list else 0
+    gde_sum = sum(gde_list) if gde_list else 0
+    gdf = gde_max * np.sqrt(1 + (gde_sum - gde_max) / gde_sum) if gde_sum else 0
+    fr_gdf = fr * gdf
+
+    df_tabela = pd.DataFrame(resultado_familia)
+
+    return df_tabela, fr, fr_gdf
+
 
 
 
@@ -195,7 +236,7 @@ st.markdown(
 st.write("")
 st.subheader("Como usar")
 st.markdown("""
-Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe a nossa planilha modelo ([acesse aqui](https://github.com/wmpjrufg/inspgde.git)) e preencha os dados da inspeção.
+Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe a nossa planilha modelo ([acesse aqui](https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/planilhas_teste/vigas.xlsx)) e preencha os dados da inspeção.
 
 Após o preenchimento da inspeção, crie um arquivo `.zip` que contenha os seguintes documentos:
 
@@ -233,6 +274,7 @@ for i in range(num_familias):
     fr_selecionados.append(fr)
 
 if st.button("Calcular"):
+    st.session_state["calculado"] = True 
     resultados_finais = []
     sum_fr_total = 0
     sum_fr_gdf_total = 0
@@ -295,8 +337,59 @@ if st.button("Calcular"):
                                 "resultado": resultado
                             })
 
-                            html_output += f"<h2>Família {i+1} - {file}</h2>"
+                            html_output += f"<br><hr><h2>Família {i+1} - {file}</h2>"
+
+                            # Substituir NaNs por 0
+                            df_html = df.fillna(0).copy()
+
+                            # Separar colunas e valores
+                            colunas = df_html.columns.tolist()
+                            valores = df_html.values.tolist()
+
+                            # Gerar cabeçalho com rowspan (para "Dano") e colspan (para as peças)
+                            cabecalho_1 = "<tr><th rowspan='2'>Dano</th>"
+                            cabecalho_2 = ""
+
+                            for col in colunas[1:]:
+                                if isinstance(col, tuple):
+                                    nome_peca, tipo = col
+                                else:
+                                    nome_peca, tipo = col, ""
+
+                                if tipo.lower() == "fi":
+                                    cabecalho_1 += f"<th colspan='2'>{nome_peca}</th>"
+
+                            cabecalho_1 += "</tr>\n<tr>"
+
+                            # Construir segundo nível de cabeçalho (Fi, Fp)
+                            for col in colunas[1:]:
+                                if isinstance(col, tuple):
+                                    _, tipo = col
+                                else:
+                                    tipo = col
+                                cabecalho_2 += f"<th>{tipo}</th>"
+
+                            cabecalho_2 += "</tr>"
+
+                            corpo = ""
+                            for row in valores:
+                                corpo += "<tr>"
+                                for val in row:
+                                    corpo += f"<td>{val}</td>"
+                                corpo += "</tr>\n"
+
+                            html_output += """
+                            <h3>Tabela original da inspeção</h3>
+                            <table border="1" cellspacing="0" cellpadding="6">
+                            """
+                            html_output += cabecalho_1 + cabecalho_2 + corpo + "</table>"
+
+                            html_output += """
+                            <br><hr>
+                            <h3>Resultados por peça (G<sub>de</sub>)</h3>
+                            """
                             html_output += resultado.to_html(index=False, border=1, escape=False)
+
                             descricao_familia = fr_descricao[fr]
                             html_output += f"<p><strong>Fator de Importância:</strong> \\( F_r = {fr} \\) – {descricao_familia}</p>"
 
@@ -307,6 +400,7 @@ if st.button("Calcular"):
                             # """
 
                             html_output += """
+                            <br>
                             <h3>Cálculo do G<sub>df</sub> (Grau de Deficiência Familiar):</h3>
                             """
                             gde_list = resultado["$$G_{de}$$"].tolist()
@@ -329,7 +423,7 @@ if st.button("Calcular"):
                             html_output += latex_formula
 
                             if fotos_base64:
-                                html_output += "<h3>Fotos da inspeção:</h3><div class='image-gallery'>"
+                                html_output += "<hr><h3>Fotos da inspeção:</h3><div class='image-gallery'>"
                                 for img_name, img_b64 in sorted(fotos_base64):
                                     html_output += f"<div class='image-box'><img src='data:image/jpeg;base64,{img_b64}'><div><small>{img_name}</small></div></div>"
                                 html_output += "</div>"
@@ -338,33 +432,22 @@ if st.button("Calcular"):
                     st.error(f"❌ Família {i+1}: Nenhuma planilha .xlsx/.xls encontrada.")
 
 
-    # Montar resumo por família
     if resultados_finais:
-        # RESUMO DAS FAMÍLIAS
-        html_output += "<hr><h2>Resumo dos Resultados por Família</h2>"
-        html_output += """
-        <table class='calc-table'>
-        <tr><th>Família / Arquivo</th><th>F<sub>r</sub></th><th>F<sub>r</sub> × G<sub>df</sub></th></tr>
-        """
-
+        resumo_familias = []
         for i, dados in enumerate(resultados_finais):
             nome_arquivo = dados["nome_arquivo"]
             fr = dados["fr"]
             fr_gdf = dados["fr_gdf"]
-            html_output += f"""
-            <tr>
-                <td>Família {i+1} – {nome_arquivo}</td>
-                <td>{fr:.4f}</td>
-                <td>{fr_gdf:.4f}</td>
-            </tr>
-            """
+            resumo_familias.append({
+                "Família / Arquivo": f"Família {i+1} – {nome_arquivo}",
+                "Fator de Importância (F_r)": fr,
+                "F_r × G_df": fr_gdf
+            })
 
-        html_output += "</table>"
+        df_resumo_familias = pd.DataFrame(resumo_familias)
 
-        # CÁLCULO FINAL DE GRAU DE DETERIORAÇÃO
-        html_output += "<hr><h2>Grau de Deterioração da Estrutura</h2>"
+        # Grau de deterioração final
         gd_final = sum_fr_gdf_total / sum_fr_total if sum_fr_total != 0 else 0
-
         if gd_final <= 15:
             nivel = "Baixo"
             acao = "Estado aceitável. Manutenção preventiva."
@@ -378,19 +461,36 @@ if st.button("Calcular"):
             nivel = "Sofrível"
             acao = "Inspeção detalhada e intervenção em curto prazo."
 
-        html_output += f"""
-        <table class='calc-table'>
-            <tr><td><strong>∑(F<sub>r</sub> × G<sub>df</sub>)</strong></td><td>{sum_fr_gdf_total:.4f}</td></tr>
-            <tr><td><strong>∑ F<sub>r</sub></strong></td><td>{sum_fr_total:.4f}</td></tr>
-            <tr><td><strong>G<sub>d</sub></strong></td><td><strong>{gd_final:.4f}</strong></td></tr>
-            <tr><td><strong>Nível de Deterioração</strong></td><td>{nivel}</td></tr>
-            <tr><td><strong>Ação Recomendada</strong></td><td>{acao}</td></tr>
-        </table>
-        """
+        dados_estrutura = {
+            "∑(F_r × G_df)": sum_fr_gdf_total,
+            "∑ F_r": sum_fr_total,
+            "Grau de Deterioração da Estrutura (G_d)": gd_final,
+            "Nível de Deterioração": nivel,
+            "Ação Recomendada": acao
+        }
+
+        df_grau_estrutura = pd.DataFrame(dados_estrutura.items(), columns=["Descrição", "Valor"])
+
+        st.session_state["df_resumo_familias"] = df_resumo_familias
+        st.session_state["df_grau_estrutura"] = df_grau_estrutura
 
         html_output += "</body></html>"
-        st.session_state.html_output = html_output
+        st.session_state["html_output"] = html_output
 
-    if st.session_state.html_output:
-        st.download_button("Baixar relatório detalhado (.html)", st.session_state.html_output.encode("utf-8"), "relatorio_gda.html", mime="text/html")
+if st.session_state.get("calculado", False):
 
+    if "df_resumo_familias" in st.session_state:
+        st.subheader("Resumo dos Resultados por Família")
+        st.dataframe(st.session_state["df_resumo_familias"], use_container_width=True)
+
+    if "df_grau_estrutura" in st.session_state:
+        st.subheader("Grau de Deterioração da Estrutura")
+        st.dataframe(st.session_state["df_grau_estrutura"], use_container_width=True)
+
+    if "html_output" in st.session_state and st.session_state.html_output:
+        st.download_button(
+            "Baixar relatório detalhado (.html)",
+            st.session_state["html_output"].encode("utf-8"),
+            file_name="relatorio_gda.html",
+            mime="text/html"
+        )
