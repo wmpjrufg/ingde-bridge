@@ -428,6 +428,19 @@ if st.button("Calcular"):
                                     html_output += f"<div class='image-box'><img src='data:image/jpeg;base64,{img_b64}'><div><small>{img_name}</small></div></div>"
                                 html_output += "</div>"
 
+                            html_output += """
+                            <hr>
+                            <h2>Resumo dos Resultados por Família</h2>
+                            """ + st.session_state["df_resumo_familias"].to_html(index=False, border=1, escape=False)
+
+                            html_output += """
+                            <hr>
+                            <h2>Grau de Deterioração da Estrutura</h2>
+                            """ + st.session_state["df_grau_estrutura"].to_html(index=False, border=1, escape=False)
+
+                            html_output += "</body></html>"
+                            st.session_state["html_output"] = html_output
+
                 if not encontrou_planilha:
                     st.error(f"❌ Família {i+1}: Nenhuma planilha .xlsx/.xls encontrada.")
 
