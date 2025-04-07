@@ -98,7 +98,7 @@ def gde(df_raw, fr):
         gde_list.append(valores['gde'])
         resultado_familia.append({
             "Elemento": peca,
-            "$$\sum D$$": valores['gde_total'],
+            r"$$\sum D$$": valores['gde_total'],
             "$$D_{max}$$": valores['gde_max'],
             "$$G_{de}$$": valores['gde'],
             "$$F_r × G_{df}$$": fr * valores['gdf']
@@ -428,19 +428,6 @@ if st.button("Calcular"):
                                     html_output += f"<div class='image-box'><img src='data:image/jpeg;base64,{img_b64}'><div><small>{img_name}</small></div></div>"
                                 html_output += "</div>"
 
-                            html_output += """
-                            <hr>
-                            <h2>Resumo dos Resultados por Família</h2>
-                            """ + st.session_state["df_resumo_familias"].to_html(index=False, border=1, escape=False)
-
-                            html_output += """
-                            <hr>
-                            <h2>Grau de Deterioração da Estrutura</h2>
-                            """ + st.session_state["df_grau_estrutura"].to_html(index=False, border=1, escape=False)
-
-                            html_output += "</body></html>"
-                            st.session_state["html_output"] = html_output
-
                 if not encontrou_planilha:
                     st.error(f"❌ Família {i+1}: Nenhuma planilha .xlsx/.xls encontrada.")
 
@@ -482,10 +469,23 @@ if st.button("Calcular"):
             "Ação Recomendada": acao
         }
 
-        df_grau_estrutura = pd.DataFrame(dados_estrutura.items(), columns=["Descrição", "Valor"])
+        df_grau_estrutura = pd.DataFrame([(k, str(v)) for k, v in dados_estrutura.items()], columns=["Descrição", "Valor"])
 
         st.session_state["df_resumo_familias"] = df_resumo_familias
         st.session_state["df_grau_estrutura"] = df_grau_estrutura
+
+        html_output += """
+        <hr>
+        <h2>Resumo dos Resultados por Família</h2>
+        """ + st.session_state["df_resumo_familias"].to_html(index=False, border=1, escape=False)
+
+        html_output += """
+        <hr>
+        <h2>Grau de Deterioração da Estrutura</h2>
+        """ + st.session_state["df_grau_estrutura"].to_html(index=False, border=1, escape=False)
+
+        html_output += "</body></html>"
+        st.session_state["html_output"] = html_output
 
         html_output += "</body></html>"
         st.session_state["html_output"] = html_output
