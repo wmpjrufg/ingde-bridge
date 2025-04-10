@@ -10,12 +10,11 @@ from math import sqrt
 
 def calcular_gde_por_peca(dfs_por_peca):
     resultados_gde = {}
-    gde_values = []
+
     for peca, df in dfs_por_peca.items():
         d_values = df['d'].values
 
         if len(d_values) == 0 or d_values.sum() == 0:
-            # Se não há danos, valores nulos
             resultados_gde[peca] = {
                 'gde': 0,
                 'gde_max': 0,
@@ -27,15 +26,13 @@ def calcular_gde_por_peca(dfs_por_peca):
         d_total = d_values.sum()
         d_max = d_values.max()
 
-        # Cálculo do GDE
+        # Cálculo do GDE (apenas um valor por peça)
         gde = d_max * (1 + ((d_total - d_max) / d_total))
-        gde_values.append(gde)
-        gde_max = max(gde_values)
-        gde_total = sum(gde_values)
-        print(f"gde values; {gde_values}")
-        print(f"Peça: {peca}, GDE: {gde}, GDE Max: {gde_max}, GDE Total: {gde_total}")
-        # Cálculo do GDF
-        gdf = gde_max * np.sqrt(1 + gde_total - gde_max) / gde_total
+
+        # Como só há um GDE por peça, os valores são simples:
+        gde_max = gde
+        gde_total = gde
+        gdf = gde_max * np.sqrt(1 + (gde_total - gde_max) / gde_total) if gde_total else 0
 
         resultados_gde[peca] = {
             'gde': gde,
@@ -50,7 +47,9 @@ def calcular_gde_por_peca(dfs_por_peca):
 def gde(df_raw, fr):
     df = df_raw.fillna(0).copy()
     col_dano = df.columns[0]
-    pecas = df.columns.levels[0][1:]
+
+    # Corrigir extração dos nomes das peças, excluindo a coluna "Danos"
+    pecas = [p for p in df.columns.levels[0] if str(p).lower() != "danos"]
 
     registros = []
 
@@ -61,9 +60,11 @@ def gde(df_raw, fr):
 
         for peca in pecas:
             try:
-                fi = int(df[(peca, 'Fi')].iloc[i]) if pd.notna(df[(peca, 'Fi')].iloc[i]) else 0
-                fp = int(df[(peca, 'Fp')].iloc[i]) if pd.notna(df[(peca, 'Fp')].iloc[i]) else 0
-            except KeyError:
+                fi_raw = df[(peca, 'Fi')].iloc[i]
+                fp_raw = df[(peca, 'Fp')].iloc[i]
+                fi = float(fi_raw) if pd.notna(fi_raw) else 0
+                fp = float(fp_raw) if pd.notna(fp_raw) else 0
+            except (KeyError, ValueError, TypeError):
                 fi, fp = 0, 0
 
             if fi <= 2.0:
@@ -74,7 +75,7 @@ def gde(df_raw, fr):
                 d = 0
 
             registros.append({
-                'peça': peca,
+                'peça': str(peca).strip(),
                 'dano': dano,
                 'fi': fi,
                 'fp': fp,
@@ -112,6 +113,7 @@ def gde(df_raw, fr):
     df_tabela = pd.DataFrame(resultado_familia)
 
     return df_tabela, fr, fr_gdf
+
 
 
 
