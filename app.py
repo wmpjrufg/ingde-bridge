@@ -10,7 +10,7 @@ from math import sqrt
 
 def calcular_gde_por_peca(dfs_por_peca):
     resultados_gde = {}
-
+    gde_values = []
     for peca, df in dfs_por_peca.items():
         d_values = df['d'].values
 
@@ -29,10 +29,10 @@ def calcular_gde_por_peca(dfs_por_peca):
 
         # Cálculo do GDE
         gde = d_max * (1 + ((d_total - d_max) / d_total))
-        gde_values = [gde]
+        gde_values.append(gde)
         gde_max = max(gde_values)
         gde_total = sum(gde_values)
-
+        print(f"gde values; {gde_values}")
         print(f"Peça: {peca}, GDE: {gde}, GDE Max: {gde_max}, GDE Total: {gde_total}")
         # Cálculo do GDF
         gdf = gde_max * np.sqrt(1 + gde_total - gde_max) / gde_total
