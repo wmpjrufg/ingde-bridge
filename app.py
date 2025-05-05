@@ -227,7 +227,7 @@ st.markdown(
         <h4>Team</h4>
         <p><a href="http://lattes.cnpq.br/2268506213083114" target="_blank">Prof. Wanderlei Malaquias Pereira Junior</a></p>
         <p><a href="https://orcid.org/0000-0003-0215-8701" target="_blank">Prof. Hunmberto Salazar Varum</a></p>
-        <p><a href="https://orcid.org/0000-0003-0964-880X" target="_blank">Wellington Andrade da Silva</a></p>
+        <p><a href="https://orcid.org/0000-0003-0964-880X" target="_blank">Prof. Wellington Andrade da Silva</a></p>
         <p><a href="" target="_blank">Eng. Marcus Vinicius Nascimento</a></p>
         <p><a href="" target="_blank">Eng. Pedro Henrique Gomes</a></p>
         <p><a href="http://orcid.org/0009-0008-4084-2137" target="_blank">Discente Luiz Henrique Ferreira Rezio</a></p>
