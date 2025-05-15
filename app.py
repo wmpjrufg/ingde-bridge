@@ -248,20 +248,12 @@ Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o 
     </thead>
     <tbody>
         <tr>
-            <td></td>
-            <td></td>
+            <td>Bloco de fundação</td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/bloco_fundacao_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
+            <td>Cortina e ala</td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
     </tbody>
     </table>
