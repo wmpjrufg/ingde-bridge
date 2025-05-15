@@ -275,9 +275,10 @@ Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zi
 </ul>
             
 <p align="justify">
-O usuário podde criar vários arquivos <code>.zip</code> com diferentes famílias de elementos, desde que cada arquivo <code>.zip</code> contenha a mesma estrutura para apenas uma família de elementos.
+O usuário pode criar vários arquivos <code>.zip</code> com diferentes famílias de elementos, desde que cada arquivo <code>.zip</code> contenha a mesma estrutura para apenas uma família de elementos.
 </p>
-""")
+""", unsafe_allow_html=True)
+
 st.markdown(rf""" 
 <p align="justify">
 Para realizar a inspeção GDE/UnB, siga os passos abaixo:
