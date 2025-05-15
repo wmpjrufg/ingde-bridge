@@ -262,14 +262,12 @@ Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o 
 Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zip</code> que contenha os seguintes documentos:
 </p>
 
-<code>
-dados_inspecao.zip
+<pre><code>dados_inspecao.zip
 ├── fotos
 │   ├── image_1.png
 │   ├── image_2.png
 │   └── ...
-└── planilha_inspecao.xlsx            
-</code>
+└── planilha_inspecao.xlsx</code></pre>
             
 <ul>
     <li><strong>fotos</strong>: Pasta que contenha as imagens em formato <code>.png</code>, <code>.jpg</code> ou <code>.jpeg</code> da inspeção realizada.</li>
