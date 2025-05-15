@@ -287,20 +287,19 @@ dados_inspecao.zip
 <p align="justify">
 O usuário podde criar vários arquivos <code>.zip</code> com diferentes famílias de elementos, desde que cada arquivo <code>.zip</code> contenha a mesma estrutura para apenas uma família de elementos.
 </p>
-
 """)
 st.markdown(rf""" 
 <p align="justify">
 Para realizar a inspeção GDE/UnB, siga os passos abaixo:
 <ol>
-    <li><p align="justify">Faça o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/" target="_blank"><i>download</i></a> do arquivo modelo de inspeção e preencha os dados necessários. Para o correto preenchimento faça também o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/fatores_intensidade.pdf" target="_blank"><i>download</i></a> do manual de utilização do GDE/UnB para verificação dos Fatores de Intensidade (F<sub>i</sub>) e Fatores de Ponderação (F<sub>i</sub>).</p></li>
+    <li><p align="justify">Faça o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/" target="_blank"><i>download</i></a> do arquivo modelo de inspeção e preencha os dados necessários. Para o correto preenchimento faça também o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/fatores_intensidade.pdf" target="_blank"><i>download</i></a> do manual de utilização do GDE/UnB para verificação dos Fatores de Intensidade (<i>F<sub>i</sub></i>) e Fatores de Ponderação (<i>F<sub>p</sub></i>).</p></li>
     <li><p align="justify">Crie uma pasta chamada "fotos" e adicione as imagens da inspeção;</p></li>
     <li><p align="justify">Compacte a pasta "fotos" e a planilha de inspeção em um arquivo <code>.zip</code> único;</p></li>
     <li><p align="justify">Repita esse processo até que todas as famílias de elementos tenham sido contempladas;</p></li>
     <li><p align="justify">Selecione o número de famílias de elementos que deseja inspecionar;</p></li>
-    <li><p align="justify">Faça o upload do arquivo .zip e selecione o grupo familiar correspondente a cada arquivo .zip;</p></li>
+    <li><p align="justify">Faça o upload do arquivo <code>.zip</code> e selecione o grupo familiar correspondente a cada arquivo <code>.zip</code>;</p></li>
     <li><p align="justify">Clique no botão "Calcular" para gerar o relatório;</p></li>
-    <li><p align="justify">Após o processamentoo resultado resumido é informdo em tela e você também poderá baixar o relatório detalhado em formato .html.</p></li>
+    <li><p align="justify">Após o processamento resultado resumido é apresentado em tela e você também poderá baixar o relatório detalhado em formato <code>.html</code>.</p></li>
 </ol> 
 """, unsafe_allow_html=True)
 
