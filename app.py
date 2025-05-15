@@ -256,7 +256,7 @@ Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o 
             <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
     </tbody>
-    </table>
+</table>
 
 <p align="justify">
 Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zip</code> que contenha os seguintes documentos:
