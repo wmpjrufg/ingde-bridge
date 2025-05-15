@@ -234,7 +234,7 @@ st.write("")
 
 # Como usar
 st.subheader("Tutorial")
-st.markdown("""
+st.markdown(rf"""
 <p align="justify">
 Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o conjunto de planilhas e preencha os dados da inspeção.
 </p>
