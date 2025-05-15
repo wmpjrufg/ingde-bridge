@@ -235,32 +235,67 @@ st.write("")
 # Como usar
 st.subheader("Tutorial")
 st.markdown("""
-Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o conjunto de planilhas modelo ([acesse aqui](https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/)) e preencha os dados da inspeção.
+<p align="justify">
+Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o conjunto de planilhas e preencha os dados da inspeção.
+</p>
+            
+<table>
+    <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Link para <i>download</i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+    </table>
 
-Após o preenchimento da inspeção com os seus dados, crie um arquivo `.zip` que contenha os seguintes documentos:
+<p align="justify">
+Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zip</code> que contenha os seguintes documentos:
+</p>
 
-```
+<code>
 dados_inspecao.zip
 ├── fotos
 │   ├── image_1.png
 │   ├── image_2.png
 │   └── ...
-└── planilha_inspecao.xlsx
+└── planilha_inspecao.xlsx            
+</code>
             
-O usuário podde criar vários arquivos `.zip` com diferentes famílias de elementos, desde que cada arquivo `.zip` contenha a mesma estrutura para apenas uma família de elementos.
-```
+<ul>
+    <li><strong>fotos</strong>: Pasta que contenha as imagens em formato <code>.png</code>, <code>.jpg</code> ou <code>.jpeg</code> da inspeção realizada.</li>
+    <li><strong>planilha_inspecao.xlsx</strong>: Planilha modelo preenchida com os dados da inspeção relativa ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais.</li>
+</ul>
+            
+<p align="justify">
+O usuário podde criar vários arquivos <code>.zip</code> com diferentes famílias de elementos, desde que cada arquivo <code>.zip</code> contenha a mesma estrutura para apenas uma família de elementos.
+</p>
 
-- fotos: Pasta que contenha as imagens em formato `.png`, `.jpg` ou `.jpeg` da inspeção realizada.
-- planilha_inspecao.xlsx: Planilha modelo preenchida com os dados da inspeção relativo ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais.
 """)
-
 st.markdown(rf""" 
 <p align="justify">
 Para realizar a inspeção GDE/UnB, siga os passos abaixo:
 <ol>
     <li><p align="justify">Faça o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/" target="_blank"><i>download</i></a> do arquivo modelo de inspeção e preencha os dados necessários. Para o correto preenchimento faça também o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/fatores_intensidade.pdf" target="_blank"><i>download</i></a> do manual de utilização do GDE/UnB para verificação dos Fatores de Intensidade (F<sub>i</sub>) e Fatores de Ponderação (F<sub>i</sub>).</p></li>
     <li><p align="justify">Crie uma pasta chamada "fotos" e adicione as imagens da inspeção;</p></li>
-    <li><p align="justify">Compacte a pasta "fotos" e a planilha de inspeção em um arquivo .zip único;</p></li>
+    <li><p align="justify">Compacte a pasta "fotos" e a planilha de inspeção em um arquivo <code>.zip</code> único;</p></li>
     <li><p align="justify">Repita esse processo até que todas as famílias de elementos tenham sido contempladas;</p></li>
     <li><p align="justify">Selecione o número de famílias de elementos que deseja inspecionar;</p></li>
     <li><p align="justify">Faça o upload do arquivo .zip e selecione o grupo familiar correspondente a cada arquivo .zip;</p></li>
@@ -505,7 +540,6 @@ if st.button("Calcular"):
 
         html_output += "</body></html>"
         st.session_state["html_output"] = html_output
-
 if st.session_state.get("calculado", False):
 
     if "df_resumo_familias" in st.session_state:
