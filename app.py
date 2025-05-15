@@ -1,10 +1,8 @@
 import pandas as pd
 import streamlit as st
-import numpy as np
 import zipfile
-import base64
 
-from pathlib import Path
+from gde_unb import image_to_base64, gde
 from math import sqrt
 
 
@@ -133,31 +131,31 @@ Para gerar o relatório de inspeção automatizado via metodologia GDE/UnB, baix
         </tr>
         <tr>
             <td>Fundação</td>
-            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/fundacao_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
         <tr>
             <td>Guarda-corpo e barreiras</td>
-            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/guarda_corpo_barreira_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
         <tr>
             <td>Junta de dilatação</td>
-            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/junta_dilatacao_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
         <tr>
             <td>Laje</td>
-            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/laje_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
         <tr>
             <td>Pilar</td>
-            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/pilar_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
         <tr>
             <td>Pista de rolamento</td>
-            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/pista_rolamento_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
         <tr>
             <td>Viga</td>
-            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cortina_ala_modelo.xlsx" target="_blank"><i>download</i></a></td>
+            <td><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/viga_modelo.xlsx" target="_blank"><i>download</i></a></td>
         </tr>
     </tbody>
 </table>

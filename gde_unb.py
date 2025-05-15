@@ -1,3 +1,8 @@
+import pandas as pd
+import numpy as np
+import base64
+from pathlib import Path
+
 def calcular_gde_por_peca(dfs_por_peca):
     resultados_gde = {}
 
