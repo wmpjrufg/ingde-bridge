@@ -232,7 +232,8 @@ st.markdown(
 )
 st.write("")
 
-st.subheader("Como usar")
+# Como usar
+st.subheader("Tutorial")
 st.markdown("""
 Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o conjunto de planilhas modelo ([acesse aqui](https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/)) e preencha os dados da inspeção.
 
@@ -245,12 +246,31 @@ dados_inspecao.zip
 │   ├── image_2.png
 │   └── ...
 └── planilha_inspecao.xlsx
+            
+O usuário podde criar vários arquivos `.zip` com diferentes famílias de elementos, desde que cada arquivo `.zip` contenha a mesma estrutura para apenas uma família de elementos.
 ```
 
 - fotos: Pasta que contenha as imagens em formato `.png`, `.jpg` ou `.jpeg` da inspeção realizada.
 - planilha_inspecao.xlsx: Planilha modelo preenchida com os dados da inspeção relativo ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais.
 """)
 
+st.markdown(rf""" 
+<p align="justify">
+Para realizar a inspeção GDE/UnB, siga os passos abaixo:
+<ol>
+    <li><p align="justify">Faça o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/" target="_blank"><i>download</i></a> do arquivo modelo de inspeção e preencha os dados necessários. Para o correto preenchimento faça também o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/fatores_intensidade.pdf" target="_blank"><i>download</i></a> do manual de utilização do GDE/UnB para verificação dos Fatores de Intensidade (F<sub>i</sub>) e Fatores de Ponderação (F<sub>i</sub>).</p></li>
+    <li><p align="justify">Crie uma pasta chamada "fotos" e adicione as imagens da inspeção;</p></li>
+    <li><p align="justify">Compacte a pasta "fotos" e a planilha de inspeção em um arquivo .zip único;</p></li>
+    <li><p align="justify">Repita esse processo até que todas as famílias de elementos tenham sido contempladas;</p></li>
+    <li><p align="justify">Selecione o número de famílias de elementos que deseja inspecionar;</p></li>
+    <li><p align="justify">Faça o upload do arquivo .zip e selecione o grupo familiar correspondente a cada arquivo .zip;</p></li>
+    <li><p align="justify">Clique no botão "Calcular" para gerar o relatório;</p></li>
+    <li><p align="justify">Após o processamentoo resultado resumido é informdo em tela e você também poderá baixar o relatório detalhado em formato .html.</p></li>
+</ol> 
+""", unsafe_allow_html=True)
+
+# Chamada do algoritmo
+st.subheader("inGDE-Bridge")
 fr_descricao = {
     1: "Barreiras, guarda-corpo, guarda rodas, pista de rolamento",
     2: "Juntas de dilatação",
@@ -258,22 +278,17 @@ fr_descricao = {
     4: "Lajes, fundações, vigas secundárias, aparelhos de apoio",
     5: "Vigas e pilares principais",
 }
-
 if "html_output" not in st.session_state:
     st.session_state.html_output = None
-
 num_familias = st.number_input("Para quantas famílias de elementos você deseja gerar o relatório?", min_value=1, step=1)
-
 uploaded_zips = []
 fr_selecionados = []
-
 for i in range(num_familias):
     st.markdown(f"### Família {i+1}")
     uploaded_zip = st.file_uploader(f"Faça upload do arquivo .zip para a Família {i+1}", type=["zip"], key=f"zip_{i}")
     fr = st.selectbox(f"Selecione o grupo familiar para a Família {i+1}", options=list(fr_descricao.keys()), format_func=lambda x: f"{fr_descricao[x]}", key=f"fr_{i}")
     uploaded_zips.append(uploaded_zip)
     fr_selecionados.append(fr)
-
 if st.button("Calcular"):
     st.session_state["calculado"] = True 
     resultados_finais = []
