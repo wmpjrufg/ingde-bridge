@@ -115,9 +115,6 @@ def gde(df_raw, fr):
     return df_tabela, fr, fr_gdf
 
 
-
-
-
 def image_to_base64(image_input):
     """
     Converte uma imagem para base64, seja a partir de bytes ou de um caminho para arquivo.
@@ -134,24 +131,21 @@ def image_to_base64(image_input):
     
     return base64.b64encode(img_bytes).decode("utf-8")
 
-st.title("Automação inspeção GDE")
 
-# def image_logo(image_path):
-#     with open(image_path, "rb") as img_file:
-#         return base64.b64encode(img_file.read()).decode()
-
-img_base64 = image_to_base64("assets/images/GDre.png")
+# Inicializa a página Streamlit 
+st.title("Automação inspeção GDE/UnB a OAEs")
+img_base64 = image_to_base64("assets/images/GDE-logo.png")
 img_html = f'<img src="data:image/png;base64,{img_base64}" width="150"/>'
 
-
+# Texto de entrada
 st.markdown(rf""" 
 <table>
   <tr>
     <td style="width:70%;">
       <p align="justify">
-        A ferramenta inspGDE é um software para automatização da inspeção de pontes com o metdologia GDE. 
-        O software foi desenvovlido pelo grupo de pesquisa liderado pelo professor Wanderlei Malaquias Pereira Junior 
-        da Faculdade  de Engenharia da Universidade Federal de Catalão. A plataforma foi construída usando a linguagem Python.
+        A ferramenta inGDE-Bridge é um <i>software</i> para automatização da inspeção de pontes com o metdologia GDE/UnB. 
+        O <i>software</i> foi desenvovlido pelo grupo de pesquisa liderado pelo professor Wanderlei Malaquias Pereira Junior 
+        da Faculdade  de Engenharia da Universidade Federal de Catalão. A plataforma foi construída usando a linguagem Python e o <i>framework</i> Streamlit. 
       </p>
     </td>
     <td style="width:100%; text-align: center;">{img_html}</td>  
@@ -159,6 +153,7 @@ st.markdown(rf"""
 </table>  
 """, unsafe_allow_html=True)
 
+# E-mail de contato
 st.markdown(
     """
     <style>
@@ -200,9 +195,9 @@ st.markdown(
     </div>
     """,
     unsafe_allow_html=True)
-
 st.write("")
 
+# Equipe
 st.markdown(
     """    
     <style>
@@ -224,7 +219,7 @@ st.markdown(
     </style>
 
     <div class="suggestions-box">
-        <h4>Team</h4>
+        <h4>Equipe</h4>
         <p><a href="http://lattes.cnpq.br/2268506213083114" target="_blank">Prof. Wanderlei Malaquias Pereira Junior</a></p>
         <p><a href="https://orcid.org/0000-0003-0215-8701" target="_blank">Prof. Hunmberto Salazar Varum</a></p>
         <p><a href="https://orcid.org/0000-0003-0964-880X" target="_blank">Prof. Wellington Andrade da Silva</a></p>
@@ -235,22 +230,25 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 st.write("")
+
 st.subheader("Como usar")
 st.markdown("""
-Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe a nossa planilha modelo ([acesse aqui](https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/planilhas_teste/vigas.xlsx)) e preencha os dados da inspeção.
+Para gerar o relatório de inspeção automatizado via metodologia GDE, baixe o conjunto de planilhas modelo ([acesse aqui](https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/)) e preencha os dados da inspeção.
 
-Após o preenchimento da inspeção, crie um arquivo `.zip` que contenha os seguintes documentos:
+Após o preenchimento da inspeção com os seus dados, crie um arquivo `.zip` que contenha os seguintes documentos:
 
 ```
-dados.zip
+dados_inspecao.zip
 ├── fotos
 │   ├── image_1.png
 │   ├── image_2.png
 │   └── ...
 └── planilha_inspecao.xlsx
 ```
+
+- fotos: Pasta que contenha as imagens em formato `.png`, `.jpg` ou `.jpeg` da inspeção realizada.
+- planilha_inspecao.xlsx: Planilha modelo preenchida com os dados da inspeção relativo ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais.
 """)
 
 fr_descricao = {
