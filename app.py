@@ -270,8 +270,8 @@ Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zi
 └── planilha_inspecao.xlsx</code></pre>
             
 <ul>
-    <li><strong>fotos</strong>: Pasta que contenha as imagens em formato <code>.png</code>, <code>.jpg</code> ou <code>.jpeg</code> da inspeção realizada.</li>
-    <li><strong>planilha_inspecao.xlsx</strong>: Planilha modelo preenchida com os dados da inspeção relativa ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais.</li>
+    <li><p align="justify"><strong>fotos</strong>: Pasta que contenha as imagens em formato <code>.png</code>, <code>.jpg</code> ou <code>.jpeg</code> da inspeção realizada.</p></li>
+    <li><p align="justify"><strong>planilha_inspecao.xlsx</strong>: Planilha modelo preenchida com os dados da inspeção relativa ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais.</p></li>
 </ul>
             
 <p align="justify">
