@@ -169,11 +169,11 @@ Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zi
 │   ├── image_1.png
 │   ├── image_2.png
 │   └── ...
-└── planilha_inspecao.xlsx</code></pre>
+└── planilha_inspecao_com_nome_familia.xlsx</code></pre>
             
 <ul>
     <li><p align="justify"><strong>fotos</strong>: Pasta que contenha as imagens em formato <code>.png</code>, <code>.jpg</code> ou <code>.jpeg</code> da inspeção realizada.</p></li>
-    <li><p align="justify"><strong>planilha_inspecao.xlsx</strong>: Planilha modelo preenchida com os dados da inspeção relativa ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais.</p></li>
+    <li><p align="justify"><strong>planilha_inspecao.xlsx</strong>: Planilha modelo preenchida com os dados da inspeção relativa ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais. Recomenda-se aqui a colocação do nome da planilha como o próprio nome da família.</p></li>
 </ul>
             
 <p align="justify">
