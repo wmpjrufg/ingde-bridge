@@ -17,29 +17,8 @@ st.title("Automatização da Inspeção GDE/UnB")
 
 st.markdown("""
 <p align="justify">
-<<<<<<< HEAD
 Envie arquivos .zip contendo <strong>uma planilha</strong> e a pasta <code>fotos</code> com imagens da inspeção.
 Cada arquivo deve representar uma família de elementos estruturais.</p>
-=======
-Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zip</code> que contenha os seguintes documentos:
-</p>
-
-<pre><code>dados_inspecao.zip
-├── fotos
-│   ├── image_1.png
-│   ├── image_2.png
-│   └── ...
-└── planilha_inspecao_com_nome_familia.xlsx</code></pre>
-            
-<ul>
-    <li><p align="justify"><strong>fotos</strong>: Pasta que contenha as imagens em formato <code>.png</code>, <code>.jpg</code> ou <code>.jpeg</code> da inspeção realizada.</p></li>
-    <li><p align="justify"><strong>planilha_inspecao.xlsx</strong>: Planilha modelo preenchida com os dados da inspeção relativa ao elemento avaliado. O nome do arquivo não deve conter espaços ou caracteres especiais. Recomenda-se aqui a colocação do nome da planilha como o próprio nome da família.</p></li>
-</ul>
-            
-<p align="justify">
-O usuário pode criar vários arquivos <code>.zip</code> com diferentes famílias de elementos, desde que cada arquivo <code>.zip</code> contenha a mesma estrutura para apenas uma família de elementos.
-</p>
->>>>>>> 2132ab64555f1d60b738a94e184b87b7569d4c7a
 """, unsafe_allow_html=True)
 
 fr_descricao = {
