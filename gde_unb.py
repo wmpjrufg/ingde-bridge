@@ -25,19 +25,21 @@ def image_to_base64(image_input):
 def gerar_relatorio_html(
     resultados_familias: Dict[str, Dict[str, float]],
     g_d: float,
-    mensagem: str,
+    nivel: str,
+    recomendacao: str,
     tabelas_originais: Dict[str, pd.DataFrame],
     imagens_por_familia: Dict[str, list],
+    nomes_arquivos: List[str],
     fr_lista: List[int],
-    fr_descricao: Dict[int, str]
-) -> str:
+    fr_descricao: Dict[int, str],
+    elementos_por_familia: Dict[str, List[str]]
+) -> Tuple[str, pd.DataFrame, pd.DataFrame]:
     """
-    Gera HTML detalhado com:
-    - Tabela original da inspeção
-    - Resultados por peça (G_de)
-    - Cálculo do G_df com fórmulas em LaTeX
-    - Galeria de imagens centralizadas
+    Gera o HTML do relatório e dois DataFrames:
+    - Um formatado para exibição no Streamlit (com $...$ para LaTeX)
+    - Outro com LaTeX escapado com \\(...\\) para renderização no HTML
     """
+
     html = """<html><head><meta charset='utf-8'><title>Relatório GDE</title>
     <style>
     body { font-family: Arial; margin: 30px; }
@@ -54,22 +56,25 @@ def gerar_relatorio_html(
     <h1>Relatório Consolidado GDE</h1>
     """
 
+    resumo_familias_html = []
+    resumo_familias_streamlit = []
+    soma_fr = 0
+    soma_fr_gdf = 0
+
     for i, (nome, dados) in enumerate(resultados_familias.items()):
         fr = dados["f_r"]
-        descricao = fr_descricao.get(fr, "")
-        gde_max = dados["gde_max"]
-        gdf = dados["g_df"]
         fr_gdf = dados["f_r × g_df"]
+        descricao = fr_descricao.get(fr, "")
+        soma_fr += fr
+        soma_fr_gdf += fr_gdf
 
-        html += f"<hr><h2>Família - {nome}</h2>"
+        html += f"<hr><h2>Família {i+1} - {nome}</h2>"
 
-        # Tabela original
         if nome in tabelas_originais:
             df_html = tabelas_originais[nome].fillna(0)
             html += "<h3>Tabela original da inspeção</h3>"
             html += df_html.to_html(index=False, border=1)
 
-        # Galeria de imagens
         imagens = imagens_por_familia.get(nome, [])
         if imagens:
             html += "<h3>Imagens da inspeção</h3><div class='image-gallery'>"
@@ -82,59 +87,124 @@ def gerar_relatorio_html(
                 """
             html += "</div>"
 
-        # Resultados numéricos e fórmula de G_df
+        resultados_elemento = dados.get("resultados_elemento", {})
+        html += f"<h3>Resultados por peça \\(G_{{de}}\\)</h3>"
         html += """
-        <h3>Resultados por peça ($G_{de}$)</h3>
         <table>
-            <tr><th>Elemento</th><th>$$\\sum D$$</th><th>$$D_{max}$$</th><th>$$G_{de}$$</th><th>$$F_r \\times G_{df}$$</th></tr>
+            <tr>
+                <th>Elemento</th>
+                <th>\(\sum D\)</th>
+                <th>\(D_{max}\)</th>
+                <th>\(G_{de}\)</th>
+                <th>\(F_r \times G_{df}\)</th>
+            </tr>
         """
-        for j in range(2):  # assumindo dois elementos por família
-            html += f"<tr><td>Peça {j+1}</td><td>{gde_max:.1f}</td><td>{gde_max:.1f}</td><td>{gde_max:.1f}</td><td>{fr_gdf:.1f}</td></tr>"
+        for el, resultado in resultados_elemento.items():
+            html += f"""
+            <tr>
+                <td>{el}</td>
+                <td>{resultado['sum_d']:.2f}</td>
+                <td>{resultado['d_max']:.2f}</td>
+                <td>{resultado['g_de']:.2f}</td>
+                <td>{fr_gdf:.2f}</td>
+            </tr>
+            """
         html += "</table>"
 
-        html += f"<p><strong>Fator de Importância:</strong> $F_r = {fr}$ – {descricao}</p>"
+        html += f"<p><strong>Fator de Importância:</strong> \\(F_r = {fr}\\) – {descricao}</p>"
 
-        gde_sum = gde_max * 2
-        formula = f"""
-        <h3>Cálculo do $G_{{df}}$ (Grau de Deficiência Familiar):</h3>
+        gde_sum = sum([v['g_de'] for v in resultados_elemento.values()])
+        gde_max = max([v['g_de'] for v in resultados_elemento.values()], default=0)
+
+        html += f"""
+        <h3>Cálculo do \\(G_{{df}}\\) (Grau de Deficiência Familiar)</h3>
         \\[
-        G_{{df}} = {gde_max:.4f} \\cdot \\sqrt{{1 + \\frac{{({gde_sum:.4f} - {gde_max:.4f})}}{{{gde_sum:.4f}}}}} = {gdf:.4f}
+        G_{{df}} = {gde_max:.4f} \\cdot \\sqrt{{1 + \\frac{{({gde_sum:.4f} - {gde_max:.4f})}}{{{gde_sum:.4f}}}}} = {dados['g_df']:.4f}
         \\]
         \\[
-        F_r \\cdot G_{{df}} = {fr:.4f} \\cdot {gdf:.4f} = \\mathbf{{{fr_gdf:.4f}}}
+        F_r \\cdot G_{{df}} = {fr:.4f} \\cdot {dados['g_df']:.4f} = \\textbf{{{fr_gdf:.4f}}}
         \\]
         """
-        html += formula
 
-    html += f"""
-    <hr><h2>Resumo Final da Estrutura</h2>
-    <p><strong>Grau de Deterioração da Estrutura ($G_d$):</strong> {g_d:.2f}</p>
-    <p><strong>Classificação e Ação Recomendada:</strong><br>{mensagem}</p>
-    </body></html>
-    """
+        resumo_familias_html.append({
+            "Família / Arquivo": f"Família {i+1} – {nomes_arquivos[i]}",
+            "Fator de Importância (\\(F_r\\))": fr,
+            "\\(F_r \\times G_{df}\\)": fr_gdf
+        })
+        resumo_familias_streamlit.append({
+            "Família / Arquivo": f"Família {i+1} – {nomes_arquivos[i]}",
+            "Fator de Importância ($F_r$)": fr,
+            "$F_r × G_df$": fr_gdf
+        })
 
-    return html
+    df_resumo_familias_streamlit = pd.DataFrame(resumo_familias_streamlit)
+    df_resumo_familias_html = pd.DataFrame(resumo_familias_html)
+
+    html += "<hr><h2>Resumo dos Resultados por Família</h2>"
+    html += df_resumo_familias_html.to_html(index=False, border=1)
+
+    dados_estrutura_html = {
+        "Descrição": [
+            "\\(\\sum (F_r \\times G_{df})\\)",
+            "\\(\\sum F_r\\)",
+            "Grau de Deterioração da Estrutura (\\(G_d\\))",
+            "Nível de Deterioração",
+            "Ação Recomendada"
+        ],
+        "Valor": [
+            f"{soma_fr_gdf:.10f}",
+            f"{soma_fr}",
+            f"{g_d:.10f}",
+            nivel.strip(),
+            recomendacao.strip()
+        ]
+    }
+    dados_estrutura_streamlit = {
+        "Descrição": [
+            "$\\sum (F_r \\times G_{df})$",
+            "$\\sum F_r$",
+            "Grau de Deterioração da Estrutura ($G_d$)",
+            "Nível de Deterioração",
+            "Ação Recomendada"
+        ],
+        "Valor": [
+            f"{soma_fr_gdf:.10f}",
+            f"{soma_fr}",
+            f"{g_d:.10f}",
+            nivel.strip(),
+            recomendacao.strip()
+        ]
+    }
+
+    df_estrutura_html = pd.DataFrame(dados_estrutura_html)
+    df_estrutura_streamlit = pd.DataFrame(dados_estrutura_streamlit)
+
+    html += "<hr><h2>Grau de Deterioração da Estrutura</h2>"
+    html += df_estrutura_html.to_html(index=False, border=1)
+    html += "</body></html>"
+
+    return html, df_resumo_familias_streamlit, df_estrutura_streamlit
 
 
-def adequa_dataset(df_ajustado: pd.DataFrame) -> Tuple[pd.DataFrame, List[str], str]:
+def adequa_dataset(df_ajustado: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
     """
     Adequa um conjunto de dados Excel para o formato com colunas simples e extrai os nomes dos elementos estruturais.
 
-    :param df_ajustado: DataFrame com dados de danos e colunas Fi/Fp por elemento.
+    :param df_ajustado: DataFrame com dados de danos e colunas Fi/Fp por elemento (multi-index).
 
     :return:
-        - df_ajustado: DataFrame com colunas renomeadas (ex: "Fi - Elemento 1").
+        - df_ajustado: DataFrame com colunas renomeadas (ex: "Fi - Pilar P01").
         - nome_elementos: Lista dos nomes dos elementos estruturais.
-        - nome_arquivo: Nome do arquivo (sem caminho e sem extensão).
     """
     elementos_brutos = df_ajustado.columns.get_level_values(0)
     nome_elementos = sorted(set(e for e in elementos_brutos if e != 'Danos'))
+
     df_ajustado.columns = [
         f"{sub} - {main}" if main != 'Danos' else 'Danos'
         for main, sub in df_ajustado.columns
     ]
-    nome_arquivo = "arquivo_sem_nome"  # você pode passar o nome por fora
-    return df_ajustado, nome_elementos, nome_arquivo
+
+    return df_ajustado, nome_elementos
 
 
 def avalia_elemento(df_ajustado: pd.DataFrame) -> Dict[str, Dict[str, float]]:
@@ -188,7 +258,7 @@ def avalia_elemento(df_ajustado: pd.DataFrame) -> Dict[str, Dict[str, float]]:
     return resultados
 
 
-def avalia_familia(df_ajustado: pd.DataFrame, nome_arquivo: str, f_r: float = 1.0) -> Dict[str, float]:
+def avalia_familia(df_ajustado: pd.DataFrame, nome_arquivo: str, f_r: float = 1.0) -> Dict[str, Dict[str, float]]:
     """
     Avalia a família de elementos estruturais com base nos resultados dos elementos. 
 
@@ -211,7 +281,8 @@ def avalia_familia(df_ajustado: pd.DataFrame, nome_arquivo: str, f_r: float = 1.
                 'gde_max': 0.0,
                 'g_df': 0.0,
                 'f_r': f_r,
-                'f_r × g_df': 0.0
+                'f_r × g_df': 0.0,
+                'resultados_elemento': resultados_elemento  # ainda útil se quiser ver 0s
             }
         }
 
@@ -226,10 +297,10 @@ def avalia_familia(df_ajustado: pd.DataFrame, nome_arquivo: str, f_r: float = 1.
             'gde_max': gde_max,
             'g_df': float(g_df),
             'f_r': f_r,
-            'f_r × g_df': float(fr_gdf)
+            'f_r × g_df': float(fr_gdf),
+            'resultados_elemento': resultados_elemento  # <-- resultado por peça
         }
     }
-
 
 def avaliar_estrutura(resultados_familias: Dict[str, Dict[str, float]]) -> Tuple[float, str]:
     """
@@ -246,34 +317,31 @@ def avaliar_estrutura(resultados_familias: Dict[str, Dict[str, float]]) -> Tuple
 
     :return:
         - g_d (float): Grau de deterioração global.
-        - mensagem (str): Nível e ação recomendada.
+        - nivel (str): Nível de deterioração.
+        - recomendacao (str): Recomendação de ação.
     """
     numerador = 0.0
     denominador = 0.0
 
-    for familia, dados in resultados_familias.items():
+    for _, dados in resultados_familias.items():
         fr = dados.get('f_r', 0)
         gdf = dados.get('g_df', 0)
-
         numerador += fr * gdf
         denominador += fr
 
     g_d = numerador / denominador if denominador else 0.0
 
-    # Classificação baseada na tabela
     if g_d <= 15:
         nivel = "Baixo"
         recomendacao = "Estado aceitável. Manutenção preventiva."
     elif g_d <= 50:
         nivel = "Médio"
-        recomendacao = "Definir prazo/natureza para nova inspeção. Planejar intervenção em longo prazo (máximo 2 anos)."
+        recomendacao = "Nova inspeção e plano de intervenção em longo prazo (até 2 anos)."
     elif g_d <= 80:
         nivel = "Alto"
-        recomendacao = "Definir prazo/natureza para inspeção especializada detalhada. Planejar intervenção em médio prazo (máximo 18 meses)."
+        recomendacao = "Inspeção detalhada e intervenção em médio prazo (até 18 meses)."
     else:
         nivel = "Sofrível"
-        recomendacao = "Definir prazo/natureza para inspeção especializada detalhada. Planejar intervenção em curto prazo."
+        recomendacao = "Inspeção detalhada e intervenção em curto prazo."
 
-    mensagem = f"Nível de Deterioração: {nivel} (G_d = {g_d:.2f})\nAção recomendada: {recomendacao}"
-
-    return g_d, mensagem
+    return g_d, nivel, recomendacao

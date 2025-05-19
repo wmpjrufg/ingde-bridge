@@ -37,8 +37,8 @@ fr_selecionados = []
 for i in range(num_familias):
     st.markdown(f"### Família {i+1}")
     uploaded_zip = st.file_uploader(f"Upload .zip da Família {i+1}", type="zip", key=f"zip_{i}")
-    fr = st.selectbox(f"Grupo familiar (F_r) da Família {i+1}", options=list(fr_descricao.keys()),
-                      format_func=lambda x: f"F_r = {x} - {fr_descricao[x]}", key=f"fr_{i}")
+    fr = st.selectbox(f"Grupo familiar ($F_r$) da Família {i+1}:", options=list(fr_descricao.keys()),
+                      format_func=lambda x: f"{x} - {fr_descricao[x]}", key=f"fr_{i}")
     uploaded_zips.append(uploaded_zip)
     fr_selecionados.append(fr)
 
@@ -46,6 +46,8 @@ if st.button("Calcular"):
     resultados_familias = {}
     tabelas_originais = {}
     imagens_por_familia = {}
+    nomes_arquivos = []
+    elementos_por_familia = {}
 
     for i, (uploaded_zip, fr) in enumerate(zip(uploaded_zips, fr_selecionados)):
         if uploaded_zip:
@@ -64,27 +66,45 @@ if st.button("Calcular"):
 
                 with zip_ref.open(planilha_nome) as f:
                     df_raw = pd.read_excel(f, header=[0, 1])
-                    df_ajustado, _, nome_arquivo = adequa_dataset(df_raw)
+                    nome_zip = os.path.splitext(uploaded_zip.name)[0]
+                    nome_planilha = os.path.splitext(os.path.basename(planilha_nome))[0]
+                    nome_arquivo = f"{nome_zip}_{nome_planilha}"
+                    df_ajustado, nome_elementos = adequa_dataset(df_raw)
 
                     resultado_familia = avalia_familia(df_ajustado, nome_arquivo, f_r=fr)
                     resultados_familias.update(resultado_familia)
                     tabelas_originais[nome_arquivo] = df_raw
                     imagens_por_familia[nome_arquivo] = fotos_base64
+                    elementos_por_familia[nome_arquivo] = nome_elementos
+
+                    nomes_arquivos.append(uploaded_zip.name)
 
                     st.success(f"Família {i+1} ({nome_arquivo}) processada com sucesso.")
                     st.write(f"{len(fotos_base64)} imagem(ns) carregadas.")
 
     if resultados_familias:
-        g_d, mensagem = avaliar_estrutura(resultados_familias)
-        html_output = gerar_relatorio_html(resultados_familias, g_d, mensagem, tabelas_originais, imagens_por_familia, fr_selecionados, fr_descricao)
-
-        st.subheader("Resumo da Avaliação da Estrutura")
-        st.markdown(mensagem)
-        st.download_button(
-            label="⬇️ Baixar relatório HTML",
-            data=html_output,
-            file_name="relatorio_gde.html",
-            mime="text/html"
+        g_d, nivel, recomendacao = avaliar_estrutura(resultados_familias)
+        html_output, df_resumo_familias, df_grau_estrutura = gerar_relatorio_html(
+            resultados_familias, g_d, nivel, recomendacao, tabelas_originais,
+            imagens_por_familia, nomes_arquivos, fr_selecionados,
+            fr_descricao, elementos_por_familia
         )
-    else:
-        st.warning("Nenhuma família foi processada com sucesso.")
+
+        # Salvar estado da sessão
+        st.session_state["html_output"] = html_output
+        st.session_state["df_resumo_familias"] = df_resumo_familias
+        st.session_state["df_grau_estrutura"] = df_grau_estrutura
+
+if "html_output" in st.session_state:
+    st.subheader("Resumo dos Resultados por Família")
+    st.table(st.session_state["df_resumo_familias"])
+
+    st.subheader("Grau de Deterioração da Estrutura")
+    st.table(st.session_state["df_grau_estrutura"])
+
+    st.download_button(
+        "⬇️ Baixar relatório HTML",
+        st.session_state["html_output"].encode("utf-8"),
+        file_name="relatorio_gde.html",
+        mime="text/html"
+    )
