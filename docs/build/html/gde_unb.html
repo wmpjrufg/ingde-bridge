@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html lang="pt" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>gde_unb module &#8212; Documentação inGDE-Bridge 0.1</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=67a6116b" />
+    <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=9f571ed1" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e6b0ddf4" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="_static/documentation_options.js?v=6e1fffae"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=beaedd51"></script>
+    
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Pesquisar" href="search.html" />
+    <link rel="prev" title="inGDE-Bridge documentation" href="index.html" /><link rel="stylesheet" href="_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="_static/py.svg">
+            <script type="text/javascript" src="_static/copybutton.js"></script>
+            <script type="text/javascript" src="_static/menu.js"></script>
+            <script type="text/javascript" src="_static/search-focus.js"></script>
+            <script type="text/javascript" src="_static/themetoggle.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Pesquisa rápida" aria-label="Pesquisa rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">gde_unb module</a><ul>
+<li><a class="reference internal" href="#gde_unb.adequa_dataset"><code class="docutils literal notranslate"><span class="pre">adequa_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.avalia_elemento"><code class="docutils literal notranslate"><span class="pre">avalia_elemento()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.avalia_familia"><code class="docutils literal notranslate"><span class="pre">avalia_familia()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.avaliar_estrutura"><code class="docutils literal notranslate"><span class="pre">avaliar_estrutura()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.gerar_relatorio_html"><code class="docutils literal notranslate"><span class="pre">gerar_relatorio_html()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.image_to_base64"><code class="docutils literal notranslate"><span class="pre">image_to_base64()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="index.html"
+                          title="capítulo anterior">inGDE-Bridge documentation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta Página</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gde_unb.rst.txt"
+            rel="nofollow">Exibir Fonte</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Pesquisa rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Índice de Módulos do Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="inGDE-Bridge documentation"
+             accesskey="P">anterior</a> |</li>
+          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">Documentação inGDE-Bridge 0.1</a> &#187;
+              
+          </li>
+        <li class="nav-item nav-item-this"><a href="">gde_unb module</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Pesquisa rápida" aria-label="Pesquisa rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-gde_unb">
+<span id="gde-unb-module"></span><h1>gde_unb module<a class="headerlink" href="#module-gde_unb" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="gde_unb.adequa_dataset">
+<span class="sig-name descname"><span class="pre">adequa_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_ajustado</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gde_unb.html#adequa_dataset"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#gde_unb.adequa_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Adequa um conjunto de dados Excel para o formato com colunas simples e extrai os nomes dos elementos estruturais.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df_ajustado</strong> (<em>DataFrame</em>) – DataFrame com dados de danos e colunas Fi/Fp por elemento (multi-index).</p>
+</dd>
+<dt class="field-even">Retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>df_ajustado: DataFrame com colunas renomeadas (ex: «Fi - Pilar P01»).</p></li>
+<li><p>nome_elementos: Lista dos nomes dos elementos estruturais.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tuple</em>[<em>DataFrame</em>, <em>List</em>[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gde_unb.avalia_elemento">
+<span class="sig-name descname"><span class="pre">avalia_elemento</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_ajustado</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gde_unb.html#avalia_elemento"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#gde_unb.avalia_elemento" title="Link to this definition">¶</a></dt>
+<dd><p>Avalia os elementos estruturais com base nos dados de danos e colunas Fi/Fp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df_ajustado</strong> (<em>DataFrame</em>) – DataFrame com danos e colunas Fi/Fp por elemento.</p>
+</dd>
+<dt class="field-even">Retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dicionário onde cada chave é um elemento e o valor é outro dicionário com:
+- “sum_d”: Soma total dos valores d.
+- “d_max”: Valor máximo de d encontrado.
+- “g_de” : Grau de deterioração estrutural (G_de).</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Dict</em>[str, <em>Dict</em>[str, float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gde_unb.avalia_familia">
+<span class="sig-name descname"><span class="pre">avalia_familia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_ajustado</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_arquivo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gde_unb.html#avalia_familia"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#gde_unb.avalia_familia" title="Link to this definition">¶</a></dt>
+<dd><p>Avalia a família de elementos estruturais com base nos resultados dos elementos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_ajustado</strong> (<em>DataFrame</em>) – DataFrame com os dados ajustados.</p></li>
+<li><p><strong>nome_arquivo</strong> (<em>str</em>) – Nome do arquivo (sem caminho e sem extensão).</p></li>
+<li><p><strong>f_r</strong> (<em>float</em>) – Fator de redução (default é 1.0).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dicionário com os resultados:
+- gde_max: Valor máximo de g_de encontrado.
+- g_df: Grau de deterioração da família.
+- f_r: Fator de redução.
+- f_r × g_df: Produto do fator de redução pelo grau de deterioração da família.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Dict</em>[str, <em>Dict</em>[str, float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gde_unb.avaliar_estrutura">
+<span class="sig-name descname"><span class="pre">avaliar_estrutura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultados_familias</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gde_unb.html#avaliar_estrutura"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#gde_unb.avaliar_estrutura" title="Link to this definition">¶</a></dt>
+<dd><p>Calcula o grau de deterioração global da estrutura (G_d) e retorna também a classificação e
+recomendação com base no valor de G_d.</p>
+<dl class="simple">
+<dt>Tabela de níveis:</dt><dd><ul class="simple">
+<li><p>0–15: Baixo</p></li>
+<li><p>16–50: Médio</p></li>
+<li><p>51–80: Alto</p></li>
+<li><p>81–100: Sofrível</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>resultados_familias</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em><em>]</em>) – Dicionário com resultados de cada família.</p>
+</dd>
+<dt class="field-even">Retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>g_d (float): Grau de deterioração global.</p></li>
+<li><p>nivel (str): Nível de deterioração.</p></li>
+<li><p>recomendacao (str): Recomendação de ação.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tuple</em>[float, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gde_unb.gerar_relatorio_html">
+<span class="sig-name descname"><span class="pre">gerar_relatorio_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resultados_familias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nivel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recomendacao</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tabelas_originais</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imagens_por_familia</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nomes_arquivos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_lista</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_descricao</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elementos_por_familia</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gde_unb.html#gerar_relatorio_html"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#gde_unb.gerar_relatorio_html" title="Link to this definition">¶</a></dt>
+<dd><p>Gera o relatório consolidado em formato HTML e dois DataFrames com os resultados da inspeção.</p>
+<p>Esta função monta um relatório em HTML com as tabelas originais, imagens, cálculos dos índices G_de e G_df, além de um resumo consolidado por família e pela estrutura como um todo. Também retorna dois DataFrames auxiliares para exibição no Streamlit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resultados_familias</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em><em>]</em>) – Dicionário com os resultados numéricos de cada família (valores de F_r, G_df, F_r × G_df e resultados por elemento).</p></li>
+<li><p><strong>g_d</strong> (<em>float</em>) – Grau de Deterioração da Estrutura calculado.</p></li>
+<li><p><strong>nivel</strong> (<em>str</em>) – Nível qualitativo de deterioração da estrutura (ex: «Baixo», «Alto», etc.).</p></li>
+<li><p><strong>recomendacao</strong> (<em>str</em>) – Texto com a recomendação de ação baseada no nível de deterioração.</p></li>
+<li><p><strong>tabelas_originais</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>DataFrame</em><em>]</em>) – Dicionário com os DataFrames originais das planilhas de inspeção por família.</p></li>
+<li><p><strong>imagens_por_familia</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>]</em>) – Dicionário com listas de tuplas (nome_da_imagem, imagem_em_base64) por família.</p></li>
+<li><p><strong>nomes_arquivos</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Lista com os nomes dos arquivos submetidos por família.</p></li>
+<li><p><strong>fr_lista</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – Lista dos fatores de importância F_r utilizados por família.</p></li>
+<li><p><strong>fr_descricao</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em>) – Dicionário com a descrição textual de cada fator F_r.</p></li>
+<li><p><strong>elementos_por_familia</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Dicionário com os nomes dos elementos estruturais presentes em cada família.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>html (str): Relatório completo gerado em formato HTML.</p></li>
+<li><p>df_resumo_familias_streamlit (pd.DataFrame): DataFrame com o resumo das famílias formatado para Streamlit (usando $…$ para LaTeX).</p></li>
+<li><p>df_estrutura_streamlit (pd.DataFrame): DataFrame com os dados gerais da estrutura, também formatado para exibição no Streamlit.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Tuple</em>[str, <em>DataFrame</em>, <em>DataFrame</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gde_unb.image_to_base64">
+<span class="sig-name descname"><span class="pre">image_to_base64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gde_unb.html#image_to_base64"><span class="viewcode-link"><span class="pre">[código</span> <span class="pre">fonte]</span></span></a><a class="headerlink" href="#gde_unb.image_to_base64" title="Link to this definition">¶</a></dt>
+<dd><p>Converte uma imagem para base64, seja a partir de bytes ou de um caminho para arquivo.
+- Se receber <cite>bytes</cite>, codifica diretamente.
+- Se receber <cite>str</cite> ou <cite>Path</cite>, abre o arquivo e codifica.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">gde_unb module</a><ul>
+<li><a class="reference internal" href="#gde_unb.adequa_dataset"><code class="docutils literal notranslate"><span class="pre">adequa_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.avalia_elemento"><code class="docutils literal notranslate"><span class="pre">avalia_elemento()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.avalia_familia"><code class="docutils literal notranslate"><span class="pre">avalia_familia()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.avaliar_estrutura"><code class="docutils literal notranslate"><span class="pre">avaliar_estrutura()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.gerar_relatorio_html"><code class="docutils literal notranslate"><span class="pre">gerar_relatorio_html()</span></code></a></li>
+<li><a class="reference internal" href="#gde_unb.image_to_base64"><code class="docutils literal notranslate"><span class="pre">image_to_base64()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Tópico anterior</h4>
+    <p class="topless"><a href="index.html"
+                          title="capítulo anterior">inGDE-Bridge documentation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Esta Página</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gde_unb.rst.txt"
+            rel="nofollow">Exibir Fonte</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Pesquisa rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Índice de Módulos do Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="inGDE-Bridge documentation"
+             >anterior</a> |</li>
+          <li><img src="_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">Documentação inGDE-Bridge 0.1</a> &#187;
+              
+          </li>
+        <li class="nav-item nav-item-this"><a href="">gde_unb module</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Pesquisa rápida" aria-label="Pesquisa rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+    Copyright
+     2025, Wanderlei, Luiz.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+    
+    <br>
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>

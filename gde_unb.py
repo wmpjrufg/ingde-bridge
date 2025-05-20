@@ -22,22 +22,28 @@ def image_to_base64(image_input):
     return base64.b64encode(img_bytes).decode("utf-8")
 
 
-def gerar_relatorio_html(
-    resultados_familias: Dict[str, Dict[str, float]],
-    g_d: float,
-    nivel: str,
-    recomendacao: str,
-    tabelas_originais: Dict[str, pd.DataFrame],
-    imagens_por_familia: Dict[str, list],
-    nomes_arquivos: List[str],
-    fr_lista: List[int],
-    fr_descricao: Dict[int, str],
-    elementos_por_familia: Dict[str, List[str]]
-) -> Tuple[str, pd.DataFrame, pd.DataFrame]:
+def gerar_relatorio_html(resultados_familias: Dict[str, Dict[str, float]], g_d: float, nivel: str, recomendacao: str, tabelas_originais: Dict[str, pd.DataFrame], imagens_por_familia: Dict[str, list], nomes_arquivos: List[str], fr_lista: List[int], fr_descricao: Dict[int, str], elementos_por_familia: Dict[str, List[str]]) -> Tuple[str, pd.DataFrame, pd.DataFrame]:
     """
-    Gera o HTML do relatório e dois DataFrames:
-    - Um formatado para exibição no Streamlit (com $...$ para LaTeX)
-    - Outro com LaTeX escapado com \\(...\\) para renderização no HTML
+    Gera o relatório consolidado em formato HTML e dois DataFrames com os resultados da inspeção.
+
+    Esta função monta um relatório em HTML com as tabelas originais, imagens, cálculos dos índices G_de e G_df, além de um resumo consolidado por família e pela estrutura como um todo. Também retorna dois DataFrames auxiliares para exibição no Streamlit.
+
+    :param resultados_familias: Dicionário com os resultados numéricos de cada família (valores de F_r, G_df, F_r × G_df e resultados por elemento).
+    :param g_d: Grau de Deterioração da Estrutura calculado.
+    :param nivel: Nível qualitativo de deterioração da estrutura (ex: "Baixo", "Alto", etc.).
+    :param recomendacao: Texto com a recomendação de ação baseada no nível de deterioração.
+    :param tabelas_originais: Dicionário com os DataFrames originais das planilhas de inspeção por família.
+    :param imagens_por_familia: Dicionário com listas de tuplas (nome_da_imagem, imagem_em_base64) por família.
+    :param nomes_arquivos: Lista com os nomes dos arquivos submetidos por família.
+    :param fr_lista: Lista dos fatores de importância F_r utilizados por família.
+    :param fr_descricao: Dicionário com a descrição textual de cada fator F_r.
+    :param elementos_por_familia: Dicionário com os nomes dos elementos estruturais presentes em cada família.
+
+    :return: 
+    
+        - html (str): Relatório completo gerado em formato HTML.
+        - df_resumo_familias_streamlit (pd.DataFrame): DataFrame com o resumo das famílias formatado para Streamlit (usando $...$ para LaTeX).
+        - df_estrutura_streamlit (pd.DataFrame): DataFrame com os dados gerais da estrutura, também formatado para exibição no Streamlit.
     """
 
     html = """<html><head><meta charset='utf-8'><title>Relatório GDE</title>

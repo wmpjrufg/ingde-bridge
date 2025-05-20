@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+
+<html lang="pt" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gde_unb &#8212; Documentação inGDE-Bridge 0.1</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=67a6116b" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css?v=9f571ed1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e6b0ddf4" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css?v=5349f25f" />
+    
+    <script src="../_static/documentation_options.js?v=6e1fffae"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=beaedd51"></script>
+    
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Pesquisar" href="../search.html" /><link rel="stylesheet" href="../_static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="../_static/py.svg">
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script>
+            <script type="text/javascript" src="../_static/search-focus.js"></script>
+            <script type="text/javascript" src="../_static/themetoggle.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="../_static/py.svg" alt="Python logo">
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="../search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Pesquisa rápida" aria-label="Pesquisa rápida" type="search" name="q">
+                <input type="submit" value="Ir">
+            </form>
+        </span>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Pesquisa rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos do Python"
+             >módulos</a> |</li>
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="../index.html">Documentação inGDE-Bridge 0.1</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código do módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">gde_unb</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Pesquisa rápida" aria-label="Pesquisa rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fonte de gde_unb</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<div class="viewcode-block" id="image_to_base64">
+<a class="viewcode-back" href="../gde_unb.html#gde_unb.image_to_base64">[documentos]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">image_to_base64</span><span class="p">(</span><span class="n">image_input</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converte uma imagem para base64, seja a partir de bytes ou de um caminho para arquivo.</span>
+<span class="sd">    - Se receber `bytes`, codifica diretamente.</span>
+<span class="sd">    - Se receber `str` ou `Path`, abre o arquivo e codifica.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image_input</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">image_input</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">img_file</span><span class="p">:</span>
+            <span class="n">img_bytes</span> <span class="o">=</span> <span class="n">img_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image_input</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="n">img_bytes</span> <span class="o">=</span> <span class="n">image_input</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Entrada inválida para image_to_base64: deve ser bytes ou caminho de arquivo (str ou Path).&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">img_bytes</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="gerar_relatorio_html">
+<a class="viewcode-back" href="../gde_unb.html#gde_unb.gerar_relatorio_html">[documentos]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gerar_relatorio_html</span><span class="p">(</span><span class="n">resultados_familias</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">g_d</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nivel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">recomendacao</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tabelas_originais</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">imagens_por_familia</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">],</span> <span class="n">nomes_arquivos</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">fr_lista</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">fr_descricao</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">elementos_por_familia</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gera o relatório consolidado em formato HTML e dois DataFrames com os resultados da inspeção.</span>
+
+<span class="sd">    Esta função monta um relatório em HTML com as tabelas originais, imagens, cálculos dos índices G_de e G_df, além de um resumo consolidado por família e pela estrutura como um todo. Também retorna dois DataFrames auxiliares para exibição no Streamlit.</span>
+
+<span class="sd">    :param resultados_familias: Dicionário com os resultados numéricos de cada família (valores de F_r, G_df, F_r × G_df e resultados por elemento).</span>
+<span class="sd">    :param g_d: Grau de Deterioração da Estrutura calculado.</span>
+<span class="sd">    :param nivel: Nível qualitativo de deterioração da estrutura (ex: &quot;Baixo&quot;, &quot;Alto&quot;, etc.).</span>
+<span class="sd">    :param recomendacao: Texto com a recomendação de ação baseada no nível de deterioração.</span>
+<span class="sd">    :param tabelas_originais: Dicionário com os DataFrames originais das planilhas de inspeção por família.</span>
+<span class="sd">    :param imagens_por_familia: Dicionário com listas de tuplas (nome_da_imagem, imagem_em_base64) por família.</span>
+<span class="sd">    :param nomes_arquivos: Lista com os nomes dos arquivos submetidos por família.</span>
+<span class="sd">    :param fr_lista: Lista dos fatores de importância F_r utilizados por família.</span>
+<span class="sd">    :param fr_descricao: Dicionário com a descrição textual de cada fator F_r.</span>
+<span class="sd">    :param elementos_por_familia: Dicionário com os nomes dos elementos estruturais presentes em cada família.</span>
+
+<span class="sd">    :return: </span>
+<span class="sd">    </span>
+<span class="sd">        - html (str): Relatório completo gerado em formato HTML.</span>
+<span class="sd">        - df_resumo_familias_streamlit (pd.DataFrame): DataFrame com o resumo das famílias formatado para Streamlit (usando $...$ para LaTeX).</span>
+<span class="sd">        - df_estrutura_streamlit (pd.DataFrame): DataFrame com os dados gerais da estrutura, também formatado para exibição no Streamlit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">html</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;html&gt;&lt;head&gt;&lt;meta charset=&#39;utf-8&#39;&gt;&lt;title&gt;Relatório GDE&lt;/title&gt;</span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">    body { font-family: Arial; margin: 30px; }</span>
+<span class="s2">    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }</span>
+<span class="s2">    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }</span>
+<span class="s2">    th { background-color: #f2f2f2; }</span>
+<span class="s2">    .image-gallery { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 20px; }</span>
+<span class="s2">    .image-box { width: 300px; text-align: center; }</span>
+<span class="s2">    .image-box img { width: 100%; border: 1px solid #ccc; border-radius: 5px; }</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">    &lt;script src=&#39;https://polyfill.io/v3/polyfill.min.js?features=es6&#39;&gt;&lt;/script&gt;</span>
+<span class="s2">    &lt;script id=&#39;MathJax-script&#39; async src=&#39;https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js&#39;&gt;&lt;/script&gt;</span>
+<span class="s2">    &lt;/head&gt;&lt;body&gt;</span>
+<span class="s2">    &lt;h1&gt;Relatório Consolidado GDE&lt;/h1&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="n">resumo_familias_html</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">resumo_familias_streamlit</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">soma_fr</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">soma_fr_gdf</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">nome</span><span class="p">,</span> <span class="n">dados</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">resultados_familias</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="n">fr</span> <span class="o">=</span> <span class="n">dados</span><span class="p">[</span><span class="s2">&quot;f_r&quot;</span><span class="p">]</span>
+        <span class="n">fr_gdf</span> <span class="o">=</span> <span class="n">dados</span><span class="p">[</span><span class="s2">&quot;f_r × g_df&quot;</span><span class="p">]</span>
+        <span class="n">descricao</span> <span class="o">=</span> <span class="n">fr_descricao</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fr</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">soma_fr</span> <span class="o">+=</span> <span class="n">fr</span>
+        <span class="n">soma_fr_gdf</span> <span class="o">+=</span> <span class="n">fr_gdf</span>
+
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;hr&gt;&lt;h2&gt;Família </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s2">&lt;/h2&gt;&quot;</span>
+
+        <span class="k">if</span> <span class="n">nome</span> <span class="ow">in</span> <span class="n">tabelas_originais</span><span class="p">:</span>
+            <span class="n">df_html</span> <span class="o">=</span> <span class="n">tabelas_originais</span><span class="p">[</span><span class="n">nome</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;h3&gt;Tabela original da inspeção&lt;/h3&gt;&quot;</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="n">df_html</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">imagens</span> <span class="o">=</span> <span class="n">imagens_por_familia</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">nome</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">imagens</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;h3&gt;Imagens da inspeção&lt;/h3&gt;&lt;div class=&#39;image-gallery&#39;&gt;&quot;</span>
+            <span class="k">for</span> <span class="n">nome_img</span><span class="p">,</span> <span class="n">base64_img</span> <span class="ow">in</span> <span class="n">imagens</span><span class="p">:</span>
+                <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                &lt;div class=&#39;image-box&#39;&gt;</span>
+<span class="s2">                    &lt;img src=&#39;data:image/jpeg;base64,</span><span class="si">{</span><span class="n">base64_img</span><span class="si">}</span><span class="s2">&#39; alt=&#39;</span><span class="si">{</span><span class="n">nome_img</span><span class="si">}</span><span class="s2">&#39; /&gt;</span>
+<span class="s2">                    &lt;div&gt;&lt;small&gt;</span><span class="si">{</span><span class="n">nome_img</span><span class="si">}</span><span class="s2">&lt;/small&gt;&lt;/div&gt;</span>
+<span class="s2">                &lt;/div&gt;</span>
+<span class="s2">                &quot;&quot;&quot;</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/div&gt;&quot;</span>
+
+        <span class="n">resultados_elemento</span> <span class="o">=</span> <span class="n">dados</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resultados_elemento&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;h3&gt;Resultados por peça </span><span class="se">\\</span><span class="s2">(G_</span><span class="se">{{</span><span class="s2">de</span><span class="se">}}\\</span><span class="s2">)&lt;/h3&gt;&quot;</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;table&gt;</span>
+<span class="s2">            &lt;tr&gt;</span>
+<span class="s2">                &lt;th&gt;Elemento&lt;/th&gt;</span>
+<span class="s2">                &lt;th&gt;\(\sum D\)&lt;/th&gt;</span>
+<span class="s2">                &lt;th&gt;\(D_</span><span class="si">{max}</span><span class="s2">\)&lt;/th&gt;</span>
+<span class="s2">                &lt;th&gt;\(G_</span><span class="si">{de}</span><span class="s2">\)&lt;/th&gt;</span>
+<span class="s2">                &lt;th&gt;\(F_r </span><span class="se">\t</span><span class="s2">imes G_</span><span class="si">{df}</span><span class="s2">\)&lt;/th&gt;</span>
+<span class="s2">            &lt;/tr&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">resultado</span> <span class="ow">in</span> <span class="n">resultados_elemento</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;tr&gt;</span>
+<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">el</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
+<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">resultado</span><span class="p">[</span><span class="s1">&#39;sum_d&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
+<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">resultado</span><span class="p">[</span><span class="s1">&#39;d_max&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
+<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">resultado</span><span class="p">[</span><span class="s1">&#39;g_de&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
+<span class="s2">                &lt;td&gt;</span><span class="si">{</span><span class="n">fr_gdf</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&lt;/td&gt;</span>
+<span class="s2">            &lt;/tr&gt;</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/table&gt;&quot;</span>
+
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;p&gt;&lt;strong&gt;Fator de Importância:&lt;/strong&gt; </span><span class="se">\\</span><span class="s2">(F_r = </span><span class="si">{</span><span class="n">fr</span><span class="si">}</span><span class="se">\\</span><span class="s2">) – </span><span class="si">{</span><span class="n">descricao</span><span class="si">}</span><span class="s2">&lt;/p&gt;&quot;</span>
+
+        <span class="n">gde_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;g_de&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">resultados_elemento</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">gde_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;g_de&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">resultados_elemento</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;h3&gt;Cálculo do </span><span class="se">\\</span><span class="s2">(G_</span><span class="se">{{</span><span class="s2">df</span><span class="se">}}\\</span><span class="s2">) (Grau de Deficiência Familiar)&lt;/h3&gt;</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">[</span>
+<span class="s2">        G_</span><span class="se">{{</span><span class="s2">df</span><span class="se">}}</span><span class="s2"> = </span><span class="si">{</span><span class="n">gde_max</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> </span><span class="se">\\</span><span class="s2">cdot </span><span class="se">\\</span><span class="s2">sqrt</span><span class="se">{{</span><span class="s2">1 + </span><span class="se">\\</span><span class="s2">frac</span><span class="se">{{</span><span class="s2">(</span><span class="si">{</span><span class="n">gde_sum</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">gde_max</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)</span><span class="se">}}{{</span><span class="si">{</span><span class="n">gde_sum</span><span class="si">:</span><span class="s2">.4f</span><span class="se">}}}}</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">dados</span><span class="p">[</span><span class="s1">&#39;g_df&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">]</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">[</span>
+<span class="s2">        F_r </span><span class="se">\\</span><span class="s2">cdot G_</span><span class="se">{{</span><span class="s2">df</span><span class="se">}}</span><span class="s2"> = </span><span class="si">{</span><span class="n">fr</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> </span><span class="se">\\</span><span class="s2">cdot </span><span class="si">{</span><span class="n">dados</span><span class="p">[</span><span class="s1">&#39;g_df&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> = </span><span class="se">\\</span><span class="s2">textbf</span><span class="se">{{</span><span class="si">{</span><span class="n">fr_gdf</span><span class="si">:</span><span class="s2">.4f</span><span class="se">}}</span><span class="si">}</span>
+<span class="s2">        </span><span class="se">\\</span><span class="s2">]</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">resumo_familias_html</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;Família / Arquivo&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Família </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> – </span><span class="si">{</span><span class="n">nomes_arquivos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Fator de Importância (</span><span class="se">\\</span><span class="s2">(F_r</span><span class="se">\\</span><span class="s2">))&quot;</span><span class="p">:</span> <span class="n">fr</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">(F_r </span><span class="se">\\</span><span class="s2">times G_</span><span class="si">{df}</span><span class="se">\\</span><span class="s2">)&quot;</span><span class="p">:</span> <span class="n">fr_gdf</span>
+        <span class="p">})</span>
+        <span class="n">resumo_familias_streamlit</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;Família / Arquivo&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Família </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> – </span><span class="si">{</span><span class="n">nomes_arquivos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Fator de Importância ($F_r$)&quot;</span><span class="p">:</span> <span class="n">fr</span><span class="p">,</span>
+            <span class="s2">&quot;$F_r × G_df$&quot;</span><span class="p">:</span> <span class="n">fr_gdf</span>
+        <span class="p">})</span>
+
+    <span class="n">df_resumo_familias_streamlit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resumo_familias_streamlit</span><span class="p">)</span>
+    <span class="n">df_resumo_familias_html</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resumo_familias_html</span><span class="p">)</span>
+
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;hr&gt;&lt;h2&gt;Resumo dos Resultados por Família&lt;/h2&gt;&quot;</span>
+    <span class="n">html</span> <span class="o">+=</span> <span class="n">df_resumo_familias_html</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">dados_estrutura_html</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Descrição&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">(</span><span class="se">\\</span><span class="s2">sum (F_r </span><span class="se">\\</span><span class="s2">times G_</span><span class="si">{df}</span><span class="s2">)</span><span class="se">\\</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">(</span><span class="se">\\</span><span class="s2">sum F_r</span><span class="se">\\</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Grau de Deterioração da Estrutura (</span><span class="se">\\</span><span class="s2">(G_d</span><span class="se">\\</span><span class="s2">))&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Nível de Deterioração&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Ação Recomendada&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;Valor&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">soma_fr_gdf</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">soma_fr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">g_d</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">nivel</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+            <span class="n">recomendacao</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+    <span class="n">dados_estrutura_streamlit</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Descrição&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">sum (F_r </span><span class="se">\\</span><span class="s2">times G_</span><span class="si">{df}</span><span class="s2">)$&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">sum F_r$&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Grau de Deterioração da Estrutura ($G_d$)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Nível de Deterioração&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Ação Recomendada&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;Valor&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">soma_fr_gdf</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">soma_fr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">g_d</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">nivel</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+            <span class="n">recomendacao</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">df_estrutura_html</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dados_estrutura_html</span><span class="p">)</span>
+    <span class="n">df_estrutura_streamlit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dados_estrutura_streamlit</span><span class="p">)</span>
+
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;hr&gt;&lt;h2&gt;Grau de Deterioração da Estrutura&lt;/h2&gt;&quot;</span>
+    <span class="n">html</span> <span class="o">+=</span> <span class="n">df_estrutura_html</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/body&gt;&lt;/html&gt;&quot;</span>
+
+    <span class="k">return</span> <span class="n">html</span><span class="p">,</span> <span class="n">df_resumo_familias_streamlit</span><span class="p">,</span> <span class="n">df_estrutura_streamlit</span></div>
+
+
+
+<div class="viewcode-block" id="adequa_dataset">
+<a class="viewcode-back" href="../gde_unb.html#gde_unb.adequa_dataset">[documentos]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">adequa_dataset</span><span class="p">(</span><span class="n">df_ajustado</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adequa um conjunto de dados Excel para o formato com colunas simples e extrai os nomes dos elementos estruturais.</span>
+
+<span class="sd">    :param df_ajustado: DataFrame com dados de danos e colunas Fi/Fp por elemento (multi-index).</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">        - df_ajustado: DataFrame com colunas renomeadas (ex: &quot;Fi - Pilar P01&quot;).</span>
+<span class="sd">        - nome_elementos: Lista dos nomes dos elementos estruturais.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">elementos_brutos</span> <span class="o">=</span> <span class="n">df_ajustado</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">nome_elementos</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elementos_brutos</span> <span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="s1">&#39;Danos&#39;</span><span class="p">))</span>
+
+    <span class="n">df_ajustado</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sub</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">main</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">main</span> <span class="o">!=</span> <span class="s1">&#39;Danos&#39;</span> <span class="k">else</span> <span class="s1">&#39;Danos&#39;</span>
+        <span class="k">for</span> <span class="n">main</span><span class="p">,</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">df_ajustado</span><span class="o">.</span><span class="n">columns</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df_ajustado</span><span class="p">,</span> <span class="n">nome_elementos</span></div>
+
+
+
+<div class="viewcode-block" id="avalia_elemento">
+<a class="viewcode-back" href="../gde_unb.html#gde_unb.avalia_elemento">[documentos]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">avalia_elemento</span><span class="p">(</span><span class="n">df_ajustado</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Avalia os elementos estruturais com base nos dados de danos e colunas Fi/Fp.</span>
+
+<span class="sd">    :param df_ajustado: DataFrame com danos e colunas Fi/Fp por elemento.</span>
+
+<span class="sd">    :return: Dicionário onde cada chave é um elemento e o valor é outro dicionário com:</span>
+<span class="sd">        - &#39;sum_d&#39;: Soma total dos valores d.</span>
+<span class="sd">        - &#39;d_max&#39;: Valor máximo de d encontrado.</span>
+<span class="sd">        - &#39;g_de&#39; : Grau de deterioração estrutural (G_de).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">resultados</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">colunas</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_ajustado</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="s2">&quot;Danos&quot;</span><span class="p">]</span>
+    <span class="n">elementos</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; - &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">colunas</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span class="n">elementos</span><span class="p">:</span>
+        <span class="n">registros</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_ajustado</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">dano</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Danos&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">dano</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;danos&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">dano</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">fi</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Fi - </span><span class="si">{</span><span class="n">elemento</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
+                <span class="n">fp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Fp - </span><span class="si">{</span><span class="n">elemento</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="n">fi</span><span class="p">,</span> <span class="n">fp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+            <span class="k">if</span> <span class="n">fi</span> <span class="o">&lt;=</span> <span class="mf">2.0</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">fi</span> <span class="o">*</span> <span class="n">fp</span>
+            <span class="k">elif</span> <span class="n">fi</span> <span class="o">&gt;=</span> <span class="mf">3.0</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="n">fi</span> <span class="o">-</span> <span class="mi">28</span><span class="p">)</span> <span class="o">*</span> <span class="n">fp</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+        <span class="n">sum_d</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span>
+        <span class="n">d_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">registros</span><span class="p">)</span> <span class="k">if</span> <span class="n">registros</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">g_de</span> <span class="o">=</span> <span class="n">d_max</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">((</span><span class="n">sum_d</span> <span class="o">-</span> <span class="n">d_max</span><span class="p">)</span> <span class="o">/</span> <span class="n">sum_d</span><span class="p">))</span> <span class="k">if</span> <span class="n">sum_d</span> <span class="k">else</span> <span class="mi">0</span>
+
+        <span class="n">resultados</span><span class="p">[</span><span class="n">elemento</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;sum_d&#39;</span><span class="p">:</span> <span class="n">sum_d</span><span class="p">,</span>
+            <span class="s1">&#39;d_max&#39;</span><span class="p">:</span> <span class="n">d_max</span><span class="p">,</span>
+            <span class="s1">&#39;g_de&#39;</span><span class="p">:</span> <span class="n">g_de</span>
+        <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">resultados</span></div>
+
+
+
+<div class="viewcode-block" id="avalia_familia">
+<a class="viewcode-back" href="../gde_unb.html#gde_unb.avalia_familia">[documentos]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">avalia_familia</span><span class="p">(</span><span class="n">df_ajustado</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">nome_arquivo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">f_r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Avalia a família de elementos estruturais com base nos resultados dos elementos. </span>
+
+<span class="sd">    :param df_ajustado: DataFrame com os dados ajustados.</span>
+<span class="sd">    :param nome_arquivo: Nome do arquivo (sem caminho e sem extensão).</span>
+<span class="sd">    :param f_r: Fator de redução (default é 1.0).</span>
+
+<span class="sd">    :return: Dicionário com os resultados:</span>
+<span class="sd">            - gde_max: Valor máximo de g_de encontrado.</span>
+<span class="sd">            - g_df: Grau de deterioração da família.</span>
+<span class="sd">            - f_r: Fator de redução.</span>
+<span class="sd">            - f_r × g_df: Produto do fator de redução pelo grau de deterioração da família.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">resultados_elemento</span> <span class="o">=</span> <span class="n">avalia_elemento</span><span class="p">(</span><span class="n">df_ajustado</span><span class="p">)</span>
+    <span class="n">gde_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dados</span><span class="p">[</span><span class="s1">&#39;g_de&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">dados</span> <span class="ow">in</span> <span class="n">resultados_elemento</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">dados</span><span class="p">[</span><span class="s1">&#39;g_de&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">gde_list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">nome_arquivo</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;gde_max&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s1">&#39;g_df&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s1">&#39;f_r&#39;</span><span class="p">:</span> <span class="n">f_r</span><span class="p">,</span>
+                <span class="s1">&#39;f_r × g_df&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s1">&#39;resultados_elemento&#39;</span><span class="p">:</span> <span class="n">resultados_elemento</span>  <span class="c1"># ainda útil se quiser ver 0s</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="n">gde_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">gde_list</span><span class="p">)</span>
+    <span class="n">gde_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">gde_list</span><span class="p">)</span>
+
+    <span class="n">g_df</span> <span class="o">=</span> <span class="n">gde_max</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">gde_sum</span> <span class="o">-</span> <span class="n">gde_max</span><span class="p">)</span> <span class="o">/</span> <span class="n">gde_sum</span><span class="p">)</span> <span class="k">if</span> <span class="n">gde_sum</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">fr_gdf</span> <span class="o">=</span> <span class="n">f_r</span> <span class="o">*</span> <span class="n">g_df</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="n">nome_arquivo</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;gde_max&#39;</span><span class="p">:</span> <span class="n">gde_max</span><span class="p">,</span>
+            <span class="s1">&#39;g_df&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">g_df</span><span class="p">),</span>
+            <span class="s1">&#39;f_r&#39;</span><span class="p">:</span> <span class="n">f_r</span><span class="p">,</span>
+            <span class="s1">&#39;f_r × g_df&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">fr_gdf</span><span class="p">),</span>
+            <span class="s1">&#39;resultados_elemento&#39;</span><span class="p">:</span> <span class="n">resultados_elemento</span>  <span class="c1"># &lt;-- resultado por peça</span>
+        <span class="p">}</span>
+    <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="avaliar_estrutura">
+<a class="viewcode-back" href="../gde_unb.html#gde_unb.avaliar_estrutura">[documentos]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">avaliar_estrutura</span><span class="p">(</span><span class="n">resultados_familias</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calcula o grau de deterioração global da estrutura (G_d) e retorna também a classificação e</span>
+<span class="sd">    recomendação com base no valor de G_d.</span>
+
+<span class="sd">    Tabela de níveis:</span>
+<span class="sd">        -  0–15: Baixo</span>
+<span class="sd">        - 16–50: Médio</span>
+<span class="sd">        - 51–80: Alto</span>
+<span class="sd">        - 81–100: Sofrível</span>
+
+<span class="sd">    :param resultados_familias: Dicionário com resultados de cada família.</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">        - g_d (float): Grau de deterioração global.</span>
+<span class="sd">        - nivel (str): Nível de deterioração.</span>
+<span class="sd">        - recomendacao (str): Recomendação de ação.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">numerador</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">denominador</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">dados</span> <span class="ow">in</span> <span class="n">resultados_familias</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">fr</span> <span class="o">=</span> <span class="n">dados</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;f_r&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">dados</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;g_df&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">numerador</span> <span class="o">+=</span> <span class="n">fr</span> <span class="o">*</span> <span class="n">gdf</span>
+        <span class="n">denominador</span> <span class="o">+=</span> <span class="n">fr</span>
+
+    <span class="n">g_d</span> <span class="o">=</span> <span class="n">numerador</span> <span class="o">/</span> <span class="n">denominador</span> <span class="k">if</span> <span class="n">denominador</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+    <span class="k">if</span> <span class="n">g_d</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">:</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;Baixo&quot;</span>
+        <span class="n">recomendacao</span> <span class="o">=</span> <span class="s2">&quot;Estado aceitável. Manutenção preventiva.&quot;</span>
+    <span class="k">elif</span> <span class="n">g_d</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;Médio&quot;</span>
+        <span class="n">recomendacao</span> <span class="o">=</span> <span class="s2">&quot;Nova inspeção e plano de intervenção em longo prazo (até 2 anos).&quot;</span>
+    <span class="k">elif</span> <span class="n">g_d</span> <span class="o">&lt;=</span> <span class="mi">80</span><span class="p">:</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;Alto&quot;</span>
+        <span class="n">recomendacao</span> <span class="o">=</span> <span class="s2">&quot;Inspeção detalhada e intervenção em médio prazo (até 18 meses).&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;Sofrível&quot;</span>
+        <span class="n">recomendacao</span> <span class="o">=</span> <span class="s2">&quot;Inspeção detalhada e intervenção em curto prazo.&quot;</span>
+
+    <span class="k">return</span> <span class="n">g_d</span><span class="p">,</span> <span class="n">nivel</span><span class="p">,</span> <span class="n">recomendacao</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Pesquisa rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegação</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice Geral"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos do Python"
+             >módulos</a> |</li>
+          <li><img src="../_static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="../index.html">Documentação inGDE-Bridge 0.1</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código do módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">gde_unb</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Pesquisa rápida" aria-label="Pesquisa rápida" type="search" name="q" id="search-box">
+          <input type="submit" value="Ir">
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+    Copyright
+     2025, Wanderlei, Luiz.
+    <br>
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br>
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br>
+    
+    
+    <br>
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br>
+    <br>
+    
+    <br>
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+
+  </body>
+</html>

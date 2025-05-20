@@ -1,3 +1,6 @@
 pandas 
 openpyxl
+numpy
 streamlit
+sphinx 
+python-docs-theme
