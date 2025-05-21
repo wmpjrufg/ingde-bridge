@@ -186,6 +186,12 @@ Após o preenchimento da inspeção com os seus dados, crie um arquivo <code>.zi
 <p align="justify">
 O usuário pode criar vários arquivos tipo <code>.zip</code>. Porém cada arquivo <code>.zip</code> deverá conter dados de uma única família de elementos.
 </p>
+
+<h4><i>Disclaimer</i></h4>
+
+<p>Esta ferramenta realiza cálculos precisos conforme metodologia GDE/UnB, porém <strong>não substitui a verificação manual</strong> por profissional qualificado.</p>
+
+<p>Todos os resultados devem ser <strong>conferidos e validados</strong> por engenheiro responsável antes da aplicação prática.</p>
 """, unsafe_allow_html=True)
 
 st.write("")
