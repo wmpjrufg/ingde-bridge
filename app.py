@@ -116,11 +116,11 @@ st.write("")
 # Como usar
 st.subheader("Tutorial")
 st.markdown(rf"""
-<p align="justify">
-Para gerar o relatório de inspeção automatizado via metodologia GDE/UnB, baixe o conjunto de planilhas e preencha os dados da inspeção no modelo.
+<p align="justify" id="tabela-download">
+Para gerar o relatório de inspeção automatizado via metodologia GDE/UnB, baixe a planilha modelo da família desejada e efetue o preenchimento. A planilha modelo vem com valores máximos preenchidos e com a indicação de 4 elementos. Faça o preenchimento conforme suas necessidades. 
 </p>
             
-<table id="tabela-download">
+<table>
     <thead>
         <tr>
             <th>Descrição</th>
