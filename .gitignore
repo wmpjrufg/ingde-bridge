@@ -1,2 +1,3 @@
 __pycache__
 ambiente_inspgde/
+.pytest_cache

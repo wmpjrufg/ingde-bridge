@@ -1,6 +1,7 @@
 pandas 
 openpyxl
 numpy
+pytest
 streamlit
 sphinx 
 python-docs-theme
