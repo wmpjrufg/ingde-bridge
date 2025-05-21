@@ -95,10 +95,9 @@ def gerar_relatorio_html(resultados_familias: Dict[str, Dict[str, float]], g_d: 
 
         resultados_elemento = dados.get("resultados_elemento", {})
         html += f"<h3>Resultados por peça \\(G_{{de}}\\)</h3>"
-        html += """
+        html += r"""
         <table>
             <tr>
-                <th>Elemento</th>
                 <th>\(\sum D\)</th>
                 <th>\(D_{max}\)</th>
                 <th>\(G_{de}\)</th>
