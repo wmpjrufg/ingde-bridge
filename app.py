@@ -200,6 +200,8 @@ st.subheader("Instruções de uso")
 st.markdown(rf""" 
 <p align="justify">
 Para realizar a inspeção GDE/UnB, siga os passos abaixo:
+</p>
+            
 <ol>
     <li><p align="justify">Faça o <a href="#tabela-download" class="top-link"><i>download</i></a> do arquivo modelo de inspeção e preencha os dados necessários. Para o correto preenchimento faça também o <a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/fatores_intensidade.pdf" target="_blank"><i>download</i></a> do manual de utilização do GDE/UnB para verificação e correto preenchimento dos Fatores de Intensidade (<i>F<sub>i</sub></i>) e Fatores de Ponderação (<i>F<sub>p</sub></i>).</p></li>
     <li><p align="justify">Crie uma pasta chamada "fotos" e adicione as imagens da inspeção;</p></li>
@@ -210,6 +212,10 @@ Para realizar a inspeção GDE/UnB, siga os passos abaixo:
     <li><p align="justify">Clique no botão "Calcular" para gerar o relatório;</p></li>
     <li><p align="justify">Após o processamento resultado resumido é apresentado em tela e você também poderá baixar o relatório detalhado em formato <code>.html</code>.</p></li>
 </ol> 
+
+<p align="justify"><a href="https://github.com/wmpjrufg/inspgde/raw/refs/heads/main/modelos/cinpar2025_paper_final_profWander.pdf" target="_blank"><i>link</i> de <i>download</i> do <i>paper</i></a>.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/e3Qw9wrEsNM?si=VZAd2KFV62tGLbJF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 """, unsafe_allow_html=True)
 
 st.write("")
