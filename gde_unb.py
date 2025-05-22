@@ -308,6 +308,7 @@ def avalia_familia(df_ajustado: pd.DataFrame, nome_arquivo: str, f_r: float = 1.
         }
     }
 
+
 def avaliar_estrutura(resultados_familias: Dict[str, Dict[str, float]]) -> Tuple[float, str]:
     """
     Calcula o grau de deterioração global da estrutura (G_d) e retorna também a classificação e
