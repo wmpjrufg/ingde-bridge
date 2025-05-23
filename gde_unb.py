@@ -5,11 +5,13 @@ import base64
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-def image_to_base64(image_input):
+def image_to_base64(image_input: str | bytes | Path) -> str:
     """
-    Converte uma imagem para base64, seja a partir de bytes ou de um caminho para arquivo.
-    - Se receber `bytes`, codifica diretamente.
-    - Se receber `str` ou `Path`, abre o arquivo e codifica.
+    Converte uma imagem em bytes ou um caminho de arquivo para uma string base64.
+
+    :param image_input: Caminho do arquivo de imagem (str ou Path) ou bytes da imagem.
+    
+    :return: String base64 da imagem.
     """
     if isinstance(image_input, (str, Path)):
         with open(image_input, "rb") as img_file:
@@ -39,11 +41,8 @@ def gerar_relatorio_html(resultados_familias: Dict[str, Dict[str, float]], g_d: 
     :param fr_descricao: Dicionário com a descrição textual de cada fator F_r.
     :param elementos_por_familia: Dicionário com os nomes dos elementos estruturais presentes em cada família.
 
-    :return: 
-    
-        - html (str): Relatório completo gerado em formato HTML.
-        - df_resumo_familias_streamlit (pd.DataFrame): DataFrame com o resumo das famílias formatado para Streamlit (usando $...$ para LaTeX).
-        - df_estrutura_streamlit (pd.DataFrame): DataFrame com os dados gerais da estrutura, também formatado para exibição no Streamlit.
+    :return: Uma tupla com três elementos: (a) html: string com o relatório completo em HTML, (b) df_resumo_familias_streamlit: DataFrame com o resumo das famílias formatado para Streamlit, 
+    (c) df_estrutura_streamlit: DataFrame com os dados gerais da estrutura formatado para exibição no Streamlit.
     """
 
     html = """<html><head><meta charset='utf-8'><title>Relatório GDE</title>
@@ -194,13 +193,11 @@ def gerar_relatorio_html(resultados_familias: Dict[str, Dict[str, float]], g_d: 
 
 def adequa_dataset(df_ajustado: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
     """
-    Adequa um conjunto de dados Excel para o formato com colunas simples e extrai os nomes dos elementos estruturais.
+    Esta função adequa um conjunto de dados em Excel para o formato com colunas simples (colunas sem mescla) e extrai os nomes dos elementos estruturais informados.
 
-    :param df_ajustado: DataFrame com dados de danos e colunas Fi/Fp por elemento (multi-index).
+    :param path_excel: Caminho dos dados da inspeção com valor de Fi e Fp preenchido por elemento em colunas com multi-index (colunas mescladas).
 
-    :return:
-        - df_ajustado: DataFrame com colunas renomeadas (ex: "Fi - Pilar P01").
-        - nome_elementos: Lista dos nomes dos elementos estruturais.
+    :return: A saída contém três variáveis, são elas: (a) df_ajustado: Dados da inspeção com valor de Fi e Fp preenchido por elemento em colunas simples. (b) nome_elementos: Nomes dos elementos estruturais. (c) nome_familia: Nome da familia de elementos.
     """
     elementos_brutos = df_ajustado.columns.get_level_values(0)
     nome_elementos = sorted(set(e for e in elementos_brutos if e != 'Danos'))
@@ -215,14 +212,11 @@ def adequa_dataset(df_ajustado: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
 
 def avalia_elemento(df_ajustado: pd.DataFrame) -> Dict[str, Dict[str, float]]:
     """
-    Avalia os elementos estruturais com base nos dados de danos e colunas Fi/Fp.
+    Esta função avalia os elementos estruturais com base nos dados de Fi e Fp informados gerando o somatório dos danos, dano máximo e grau de deterioração do elemento.
 
-    :param df_ajustado: DataFrame com danos e colunas Fi/Fp por elemento.
+    :param df_ajustado: Dados da inspeção com valor de Fi e Fp preenchido por elemento em colunas simples.
 
-    :return: Dicionário onde cada chave é um elemento e o valor é outro dicionário com:
-        - 'sum_d': Soma total dos valores d.
-        - 'd_max': Valor máximo de d encontrado.
-        - 'g_de' : Grau de deterioração estrutural (G_de).
+    :return: A saída contém uma única variável dicionário que detalha os resultados para cada elemento. O dicionário possui as seguintes chaves: (a) 'sum_d': Soma total dos valores d. (b) 'd_max': Valor máximo de dano encontrado. (c) 'g_de' : Grau de deterioração do elemento (G_de).
     """
     resultados = {}
     colunas = [col for col in df_ajustado.columns if col != "Danos"]
@@ -264,19 +258,17 @@ def avalia_elemento(df_ajustado: pd.DataFrame) -> Dict[str, Dict[str, float]]:
     return resultados
 
 
-def avalia_familia(df_ajustado: pd.DataFrame, nome_arquivo: str, f_r: float = 1.0) -> Dict[str, Dict[str, float]]:
+def avalia_familia(df_ajustado: pd.DataFrame, nome_arquivo: str, f_r: float) -> Dict[str, Dict[str, float]]:
     """
     Avalia a família de elementos estruturais com base nos resultados dos elementos. 
 
     :param df_ajustado: DataFrame com os dados ajustados.
     :param nome_arquivo: Nome do arquivo (sem caminho e sem extensão).
-    :param f_r: Fator de redução (default é 1.0).
+    :param f_r: Fator de redução.
 
-    :return: Dicionário com os resultados:
-            - gde_max: Valor máximo de g_de encontrado.
-            - g_df: Grau de deterioração da família.
-            - f_r: Fator de redução.
-            - f_r × g_df: Produto do fator de redução pelo grau de deterioração da família.
+    :return: Un dicionário com os resultados da avaliação da família. O dicionário contém as seguintes chaves: (a) 'gde_max': Valor máximo de g_de encontrado. 
+    (b) 'g_df': Grau de deterioração da família. (c) 'f_r': Fator de redução. (d) 'f_r × g_df': Produto do fator de redução pelo grau de deterioração da família. 
+    (e) 'resultados_elemento': Dicionário com os resultados por elemento.
     """
     resultados_elemento = avalia_elemento(df_ajustado)
     gde_list = [dados['g_de'] for dados in resultados_elemento.values() if dados['g_de'] > 0]
@@ -322,10 +314,7 @@ def avaliar_estrutura(resultados_familias: Dict[str, Dict[str, float]]) -> Tuple
 
     :param resultados_familias: Dicionário com resultados de cada família.
 
-    :return:
-        - g_d (float): Grau de deterioração global.
-        - nivel (str): Nível de deterioração.
-        - recomendacao (str): Recomendação de ação.
+    :return: Uma tupla com três elementos: (a) g_d: Grau de deterioração global (float), (b) nivel: Nível de deterioração (str), (c) recomendacao: Recomendação de ação (str).
     """
     numerador = 0.0
     denominador = 0.0
